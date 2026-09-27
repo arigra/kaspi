@@ -479,3 +479,33 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .ch-scene{margin:0; font-size:16px; line-height:1.55; font-weight:600}
 .hs-say.small{font-size:15px; padding:6px 12px; margin-top:0}
 .hs-say.small:before{top:50%; left:auto; inset-inline-start:-8px; transform:translateY(-50%) rotate(-45deg); border-top:0; border-inline-start:2px solid var(--ink); border-bottom:2px solid var(--ink)}
+/* ---------- review mode (?review) ---------- */
+.rv{padding:0 14px 90px}
+.rv-top{position:sticky; top:0; z-index:5; background:var(--bg); padding:12px 0 8px; display:flex; flex-direction:column; gap:8px}
+.rv-tabs{display:flex; gap:6px; overflow-x:auto}
+.rv-tabs button{flex:none; border:2px solid var(--line); background:var(--card); border-radius:999px; padding:7px 13px; font-weight:800; font-size:14px}
+.rv-tabs button.on{background:var(--cta); border-color:var(--cta); color:#fff}
+.rv h2{font-size:20px; margin:22px 0 8px}
+.rv h3{font-size:17px; margin:16px 0 8px; color:var(--cta-deep,#a86b1c)}
+.rv-lesson{background:var(--card); border:2px solid var(--line); border-radius:18px; padding:12px; margin-bottom:12px}
+.rv-lhead{display:flex; flex-direction:column; gap:2px; margin-bottom:8px}
+.rv-lhead small{color:var(--muted)}
+.rv-prize{font-size:13px; font-weight:800; color:var(--good)}
+.rv-screen{border-top:1.5px dashed var(--line); padding:10px 0}
+.rv-type{color:var(--muted); font-weight:800; font-size:12px}
+.rv-screen h4{margin:4px 0 6px; font-size:15.5px}
+.rv-screen p, .rv-screen li{font-size:14.5px; line-height:1.55; margin:4px 0}
+.rv-screen ol{margin:4px 0; padding-inline-start:20px}
+.rv-scene{color:var(--muted)}
+.rv-opt{display:flex; flex-direction:column; gap:2px; border-inline-start:3px solid var(--line); padding:4px 8px; margin:6px 0; font-size:14px; line-height:1.5}
+.rv-opt.good{border-color:var(--good)}
+.rv-note{margin-top:6px}
+.rv-note textarea{width:100%; min-height:60px; border:2px solid #f2c14e; border-radius:12px; padding:8px; font:inherit; font-size:14.5px; background:#fffaf0}
+.rv-notebtn{border:1.5px solid var(--line); background:transparent; border-radius:999px; padding:3px 12px; font-size:13px; font-weight:700; color:var(--muted)}
+.rv-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+.rv-cell{background:var(--card); border:2px solid var(--line); border-radius:16px; padding:8px; display:flex; flex-direction:column; gap:4px; font-size:13.5px}
+.rv-fig{height:200px}
+.rv-world{margin-bottom:14px; display:grid; gap:6px}
+.rv-export{width:100%; min-height:300px; border:2px solid var(--line); border-radius:12px; padding:10px; font:inherit; font-size:14px}
+.rv-copy{position:fixed; bottom:14px; left:50%; transform:translateX(-50%); width:min(92vw,480px); border:0; border-radius:16px; padding:14px; font:inherit; font-weight:800; font-size:16px; background:var(--cta); color:#fff; box-shadow:0 4px 0 var(--cta-deep,#a86b1c); z-index:6}
+.rv-copy:disabled{opacity:.45}
