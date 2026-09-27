@@ -33,7 +33,8 @@ function Teeth({ look }) {
     const x1 = d.x - d.tx * d.w / 2, y1 = d.y - d.ty * d.w / 2, x2 = d.x + d.tx * d.w / 2, y2 = d.y + d.ty * d.w / 2
     const ax = d.x + d.nx * d.h, ay = d.y + d.ny * d.h
     const gold = look.grill || GOLD_ORDER.slice(0, look.gold).includes(key)
-    const fill = gold ? '#f2c14e' : look.white ? '#ffffff' : DIRTY[d.shade]
+    const diamond = look.diamondTooth && key === 't5' && !look.grill
+    const fill = diamond ? '#bfeaff' : gold ? '#f2c14e' : look.white ? '#ffffff' : DIRTY[d.shade]
     return <path key={key} d={`M${x1} ${y1} L${ax} ${ay} L${x2} ${y2}z`} fill={fill}
       stroke={gold ? '#b8862b' : look.white ? '#dfe6ea' : '#b9a66a'} strokeWidth=".8" strokeLinejoin="round"
       transform={`rotate(${d.ang * look.crook} ${d.x} ${d.y})`} />
@@ -143,7 +144,7 @@ function RightItem({ look }) {
         {look.smoke && <circle cx={big ? 1.5 : 0} cy={big ? -58 : -40} r="4" fill="#ff7a2e" />}
       </g>
       {look.smoke && (
-        <g className="h-smoke" fill="#cfd6dc" opacity=".8">
+        <g className="h-smoke" fill={look.smokeRings ? 'none' : '#cfd6dc'} stroke={look.smokeRings ? '#cfd6dc' : 'none'} strokeWidth="3" opacity=".8">
           <circle cx={big ? 282 : 272} cy={big ? 186 : 204} r="6" /><circle cx={big ? 290 : 280} cy={big ? 172 : 190} r="8" /><circle cx={big ? 284 : 274} cy={big ? 154 : 172} r="10" />
         </g>
       )}
@@ -240,6 +241,7 @@ function Chains({ look }) {
       {(n === 'goldThick' || n === 'medallion') && <path d="M118 186 q32 30 64 0" stroke="#f2c14e" strokeWidth="6" fill="none" strokeDasharray="6 2" />}
       {n === 'medallion' && <g><circle cx="150" cy="222" r="15" fill="#f2c14e" stroke="#b8862b" strokeWidth="2.5" /><text x="150" y="229" textAnchor="middle" fontSize="18" fontWeight="900" fill="#8a5a12">₪</text></g>}
       {look.neck2 && <path d="M112 186 q38 44 76 0" stroke="#f2c14e" strokeWidth="4" fill="none" strokeDasharray="4 3" />}
+      {look.neck3 && <path d="M106 186 q44 56 88 0" stroke="#e8eef2" strokeWidth="3.5" fill="none" strokeDasharray="3 3" />}
     </>
   )
 }
@@ -258,11 +260,13 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
       </defs>
       <ellipse cx="150" cy="405" rx="95" ry="10" fill="#000" opacity=".12" />
       <g className="h-all">
+        {look.cape && <path className="h-cape" d="M96 190 q-30 80 -26 180 q80 20 160 0 q4 -100 -26 -180z" fill="#b3202f" stroke="#f2c14e" strokeWidth="3" />}
         <path className="h-tail" d="M190 330 q55 10 70 -30 q-10 40 20 60 q-45 5 -80 -10z" fill={pal.lo} />
         {/* legs + trousers */}
         <path d="M112 325 q-6 40 -4 70 h30 q2 -30 -2 -70z" fill={suitPants || `url(#h-skin-${pk})`} />
         <path d="M162 325 q-2 40 2 70 h30 q2 -30 -6 -70z" fill={suitPants || `url(#h-skin-${pk})`} />
         {/* shoes */}
+        {look.socks !== 'none' && look.pants === 'rag' && <><rect x="109" y="380" width="30" height="11" rx="3" fill="#e0344b" /><rect x="162" y="380" width="30" height="11" rx="3" fill={look.socks === 'match' ? '#e0344b' : '#2f8f5b'} /></>}
         {look.shoes === 'flipMismatch' && <><ellipse cx="118" cy="398" rx="26" ry="7" fill="#c9533f" /><ellipse cx="182" cy="398" rx="26" ry="7" fill="#3f7fc9" /><path d="M112 392 l6 -8 l6 8" stroke="#7a2e22" strokeWidth="3" fill="none" /><path d="M176 392 l6 -8 l6 8" stroke="#224f7a" strokeWidth="3" fill="none" /></>}
         {look.shoes === 'flip' && <><ellipse cx="118" cy="398" rx="26" ry="7" fill="#3f7fc9" /><ellipse cx="182" cy="398" rx="26" ry="7" fill="#3f7fc9" /><path d="M112 392 l6 -8 l6 8 M176 392 l6 -8 l6 8" stroke="#224f7a" strokeWidth="3" fill="none" /></>}
         {(look.shoes === 'sneaker' || look.shoes === 'goldSneaker') && <><path d="M96 400 q0 -16 22 -16 q18 0 24 16z M158 400 q0 -16 22 -16 q18 0 24 16z" fill={look.shoes === 'goldSneaker' ? '#f2c14e' : '#fff'} stroke={look.shoes === 'goldSneaker' ? '#b8862b' : '#cfd6dc'} strokeWidth="2" /><path d="M100 398 h42 M162 398 h42" stroke={look.shoes === 'goldSneaker' ? '#fff' : '#d05a3f'} strokeWidth="3" /></>}
@@ -280,7 +284,7 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
           <>
             <path d="M96 272 h112 l6 66 q-26 6 -44 0 l-10 -26 l-10 26 q-20 6 -44 0z" fill={suitPants} />
             <path d="M94 274 h116" stroke={look.pants === 'suit' ? '#111' : '#4a3122'} strokeWidth="6" strokeLinecap="round" />
-            <rect x="143" y="270" width="14" height="9" rx="2" fill="#f2c14e" />
+            <rect x={look.buckle ? 134 : 143} y={look.buckle ? 265 : 270} width={look.buckle ? 32 : 14} height={look.buckle ? 18 : 9} rx="3" fill="#f2c14e" stroke={look.buckle ? '#b8862b' : 'none'} strokeWidth="2" />
           </>
         )}
         {look.pocketsOut && <><path d="M98 280 q-18 6 -14 24 q12 4 18 -10z" fill="#efe6d2" stroke="#b8a67f" strokeWidth="2" /><path d="M206 280 q18 6 14 24 q-12 4 -18 -10z" fill="#efe6d2" stroke="#b8a67f" strokeWidth="2" /></>}
@@ -289,13 +293,18 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
           <path d="M92 190 q-6 50 4 86 h112 q10 -36 4 -86 q-58 -26 -120 0z" fill={`url(#h-skin-${pk})`} />
           <Shirt look={look} pal={pal} pk={pk} />
           {look.tie && <path d="M150 190 l-7 8 l7 44 l7 -44z" fill="#c0392b" />}
+          {look.chestHair && (look.shirt === 'silk' || look.shirt === 'none') && <path d="M142 196 q3 -4 6 0 q3 4 6 0 M140 206 q4 -4 8 0 q4 4 8 0 M144 216 q3 -4 6 0" stroke="#3a4a55" strokeWidth="1.8" fill="none" />}
+          {look.headphones && <><path d="M110 188 q40 34 80 0" stroke="#2a2a30" strokeWidth="5" fill="none" /><circle cx="110" cy="190" r="8" fill="#e0344b" /><circle cx="190" cy="190" r="8" fill="#e0344b" /></>}
           <Chains look={look} />
+          {look.pin && (look.shirt === 'blazer' || look.shirt === 'suitWhite') && <circle cx="120" cy="206" r="4.5" fill="#f2c14e" stroke="#b8862b" strokeWidth="1.5" />}
+          {look.pocketSquare && (look.shirt === 'blazer' || look.shirt === 'suitWhite') && <path d="M172 214 l6 -8 l5 8 l5 -7 l3 7z" fill="#fff" stroke="#e0344b" strokeWidth="1.5" />}
           {look.fur && <path d="M84 196 q10 -26 40 -22 q-8 12 -2 20 q-14 -2 -18 12 q-10 -6 -20 -10z M216 196 q-10 -26 -40 -22 q8 12 2 20 q14 -2 18 12 q10 -6 20 -10z" fill="#8a6a4a" stroke="#6b4e32" strokeWidth="2" />}
 
           <g className="h-armL">
             <path d="M96 200 q-34 10 -44 40 q-4 12 8 12 q16 -24 40 -30z" fill={sleeve || `url(#h-skin-${pk})`} />
             {look.cufflinks && <circle cx="60" cy="243" r="3" fill="#f2c14e" />}
             {look.bracelet && <path d="M52 240 q8 -6 16 0" stroke="#f2c14e" strokeWidth="3" fill="none" />}
+            {look.tattoo && !sleeve && <path d="M72 222 q-4 -6 -8 -2 q-2 4 8 10 q10 -6 8 -10 q-4 -4 -8 2z" fill="#c0392b" opacity=".85" />}
             {look.watch2 && <rect x="52" y="236" width="14" height="8" rx="2" fill="#e8eef2" stroke="#9fb3c9" strokeWidth="1.5" transform="rotate(-35 59 240)" />}
             <LeftItem look={look} />
             <Hand x={56} y={250} rings={Math.max(0, look.rings - 3)} skin={pal.hand} />
@@ -309,6 +318,7 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
                 stroke={look.watch === 'diamond' ? '#9fd3e6' : 'none'} strokeWidth="2" />
             )}
             <RightItem look={look} />
+            {look.bracelet2 && <path d="M232 244 q8 -7 17 -1" stroke="#cfd6dc" strokeWidth="3" fill="none" />}
             <Hand x={244} y={256} rings={Math.min(look.rings, 3)} skin={pal.hand} />
           </g>
 
@@ -325,6 +335,8 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
             <Brows brow={look.brow} pal={pal} />
             {look.brow === 'sad' && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke={pal.hi} strokeWidth="2" fill="none" />}
             <Teeth look={look} />
+            {look.toothpick && <path d="M190 152 L216 138" stroke="#d9b27a" strokeWidth="3" strokeLinecap="round" />}
+            {look.finRing && look.hat !== 'beanie' && look.hat !== 'cap' && <circle cx="170" cy="14" r="5" fill="none" stroke="#f2c14e" strokeWidth="2.5" />}
             {look.bandage && <g transform="rotate(25 198 78)"><rect x="186" y="74" width="24" height="9" rx="3" fill="#e9c89a" /><path d="M192 74 v9 M198 76 v9" stroke="#c9a376" strokeWidth="1.5" /></g>}
             <Eyes look={look} />
             <Hat look={look} pal={pal} />

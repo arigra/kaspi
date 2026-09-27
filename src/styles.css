@@ -409,8 +409,10 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .stagenav{width:40px; height:40px; border-radius:50%; border:2px solid var(--line); background:var(--card); font-size:24px; font-weight:900; color:var(--ink); line-height:1}
 .stagenav:disabled{opacity:.3}
 .allch{text-align:center; margin-top:2px}
-.lessons{display:flex; flex-direction:column; gap:12px; padding:18px 16px 4px}
-.lrow{display:flex; align-items:center; gap:14px; width:100%; border:0; background:none; padding:0; text-align:start; font:inherit; color:inherit}
+.lessons{display:flex; flex-direction:column; gap:30px; padding:18px 16px 4px}
+.lrow{position:relative; display:flex; align-items:center; gap:14px; width:100%; min-height:60px; border:0; background:none; padding:0; text-align:start; font:inherit; color:inherit}
+.trail{position:absolute; top:-32px; inset-inline-start:0; pointer-events:none}
+[dir=rtl] .trail{right:0; left:auto}
 .lrow:nth-child(even){padding-inline-start:44px}
 .lrow .node{flex:none; display:grid; place-items:center}
 .lrow .node.isle{width:72px; height:54px}
@@ -473,3 +475,7 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .prize.big{font-size:38px; margin-top:18px}
 .morphscene .scene{transition:filter .3s}
 .morphscene.after .scene{animation:grow .6s cubic-bezier(.3,1.6,.5,1)}
+.ch-say{flex:1; display:flex; flex-direction:column; gap:8px; align-items:flex-start}
+.ch-scene{margin:0; font-size:16px; line-height:1.55; font-weight:600}
+.hs-say.small{font-size:15px; padding:6px 12px; margin-top:0}
+.hs-say.small:before{top:50%; left:auto; inset-inline-start:-8px; transform:translateY(-50%) rotate(-45deg); border-top:0; border-inline-start:2px solid var(--ink); border-bottom:2px solid var(--ink)}

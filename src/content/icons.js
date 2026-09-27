@@ -1,5 +1,6 @@
 // One small island per lesson; the icon says what the lesson is about.
 export const LESSON_ICON = {
+  'לאן הכסף נעלם?': 'search', 'למיין את ההוצאות': 'basket', 'ההוצאות שלכם': 'receipt', 'הוצאות של פעם בשנה': 'calendar', 'מיתוסים על חודש "שקט"': 'doc', 'יתרה או עודף?': 'drop', 'המספר שלכם': 'coin',
   'לדעת מה יוצא': 'receipt', 'ההוצאות שלא מופיעות בחודש רגיל': 'calendar', 'העודף האמיתי שלכם': 'drop',
   'כמה חודשים יש לכם': 'clock', 'כמה כרית באמת צריך': 'shield', 'איפה מחזיקים כרית': 'bank',
   'להפוך החלטה טובה לאוטומטית': 'repeat', 'לחסוך את התוספת הבאה': 'up', 'לבדוק, בלי להתעסק יותר מדי': 'search',
@@ -22,4 +23,5 @@ export const LESSON_ICON = {
   'מה המשכנתא עולה': 'house', 'תמהיל ומסלולים': 'compass', 'מה ההצמדה למדד עושה': 'up', 'מיחזור משכנתא': 'repeat',
   'תשואה משכירות': 'key', 'הבלאי שאף אחד לא מתמחר': 'tool', 'נזילות וריכוז': 'lock', 'למגורים או להשקעה': 'house'
 }
-export const iconFor = (lesson) => lesson.icon || LESSON_ICON[lesson.title] || 'coin'
+const FALLBACK = ['sprout', 'compass', 'shield', 'up', 'doc', 'scale', 'key', 'clock']
+export const iconFor = (lesson, i = 0) => lesson.icon || LESSON_ICON[lesson.title] || FALLBACK[(lesson.title.length + i) % FALLBACK.length]

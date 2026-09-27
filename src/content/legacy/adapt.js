@@ -30,30 +30,35 @@ function toCards(text, emojis) {
 
 function adapt(ref) {
   const old = PATHS[ref[0]].lessons[Number(ref.slice(1))]
-  const screens = []
+  const mission = MISSIONS[ref] ? [{ type: 'mission', text: MISSIONS[ref] }] : []
+  const card = { front: old.title, back: old.takeaway }
   if (old.kind === 'tool') {
     const sc = TOOL_SCENES[ref]
-    if (sc) screens.push({ type: 'scene', text: sc[0], say: sc[1], mood: sc[2] })
-    screens.push({ type: 'cards', title: old.intro, cards: toCards(old.explanation), source: old.source })
+    const screens = [{ type: 'cards', title: old.intro, cards: toCards(old.explanation), source: old.source }]
+    if (sc) screens[0].scene = { text: sc[0], say: sc[1], mood: sc[2] }
     if (LIVE[ref]) screens.push({ type: 'live', math: true, ...LIVE[ref] })
-  } else {
-    const h = HERO[ref]
-    if (h) {
-      screens.push({ type: 'scene', text: h.s[0], say: h.s[1], mood: h.s[2] })
-      screens.push({ type: 'choice', prompt: h.q, options: old.options.map((t, i) => ({ t, out: h.o[i], good: i === old.answer, emoji: ['א', 'ב', 'ג', 'ד'][i] })) })
-      screens.push({ type: 'cards', title: old.intro, cards: toCards(old.explanation, h.e), source: old.source })
-    } else {
-      screens.push({ type: 'cards', title: old.intro, cards: toCards(old.explanation), source: old.source })
-      screens.push({ type: 'predict', prompt: old.question, options: old.options, answer: old.answer, reveal: old.takeaway })
-    }
+    return [{ title: old.title, minutes: 2, screens: [...screens, ...mission], card, _q: old }]
   }
-  if (MISSIONS[ref]) screens.push({ type: 'mission', text: MISSIONS[ref] })
-  return { title: old.title, minutes: old.minutes, screens, card: { front: old.title, back: old.takeaway }, _q: old }
+  const h = HERO[ref]
+  const cards = toCards(old.explanation, h?.e)
+  const choice = h
+    ? { type: 'choice', scene: { text: h.s[0], say: h.s[1], mood: h.s[2] }, prompt: h.q, options: old.options.map((t, i) => ({ t, out: h.o[i], good: i === old.answer })) }
+    : { type: 'predict', prompt: old.question, options: old.options, answer: old.answer, reveal: old.takeaway }
+  if (cards.length < 4) {
+    return [{ title: old.title, minutes: 2, screens: [choice, { type: 'cards', title: old.intro, cards, source: old.source }, ...mission], card, _q: old }]
+  }
+  // Long idea → two short lessons.
+  const second = old.intro.replace(/[.。]$/, '')
+  const firstCard = { front: h ? h.q : old.title, back: h ? h.o[old.answer].split(/(?<=[.!?])\s+/)[0] : old.takeaway }
+  return [
+    { title: old.title, minutes: 2, screens: [choice, { type: 'cards', title: old.intro, cards: cards.slice(0, 2) }], card: firstCard, _q: old },
+    { title: second, minutes: 2, screens: [{ type: 'cards', cards: cards.slice(2), source: old.source }, ...mission], card, _q: {} }
+  ]
 }
 
 // Build a chapter from references like 's3' (saving lesson 3).
 export function legacyChapter({ id, title, refs, item, guide = 'kaspi' }) {
-  const lessons = refs.map(adapt)
+  const lessons = refs.flatMap(adapt)
   // The chapter challenge replays each lesson's question in the classic quiz form.
   const challenge = lessons
     .filter((l) => l._q.question)

@@ -8,6 +8,17 @@ import Icon from '../components/Icon.jsx'
 
 const goalOf = (l) => l.goal || l.card?.front
 
+// Dashed trail from the previous island to this one (rows zig-zag by 44px).
+function Trail({ i }) {
+  if (i === 0) return null
+  const W = 130, from = W - (i % 2 === 1 ? 36 : 80), to = W - (i % 2 === 1 ? 80 : 36)
+  return (
+    <svg className="trail" width={W} height="34" viewBox={`0 0 ${W} 34`} aria-hidden="true">
+      <path d={`M${from} 0 C${from} 17, ${to} 17, ${to} 34`} fill="none" stroke="#c9b27a" strokeWidth="3" strokeDasharray="2 7" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export default function Home({ state, stageIndex, setStage, next, focusChapter, chapterStatus, actions }) {
   const stage = STAGES[stageIndex]
   const ready = stage.chapters.filter((c) => !c.writing)
@@ -65,8 +76,9 @@ export default function Home({ state, stageIndex, setStage, next, focusChapter, 
                 const isNext = next && next.chapter.id === c.id && next.index === i
                 return (
                   <button key={i} className={`lrow ${isDone ? 'done' : isNext ? 'active' : ''}`} onClick={() => actions.startLesson(c.id, i)}>
+                    <Trail i={i} />
                     <span className={`node isle ${isDone ? 'done' : isNext ? 'active' : ''}`}>
-                      <span className="isle-ico"><Icon name={iconFor(l)} size={26} stroke={2.2} /></span>
+                      <span className="isle-ico"><Icon name={iconFor(l, i)} size={26} stroke={2.2} /></span>
                       {isDone && <span className="isle-done"><Icon name="check" size={13} stroke={3} /></span>}
                     </span>
                     <span className="lr-text"><b>{l.title}</b><small>{l.minutes} דק׳{isNext ? ' · הבא בתור' : ''}</small></span>
@@ -74,6 +86,7 @@ export default function Home({ state, stageIndex, setStage, next, focusChapter, 
                 )
               })}
               <button className={`lrow chalrow ${state.chapterDone[c.id] ? 'done' : allDone ? 'ready' : ''}`} onClick={() => actions.startChallenge(c.id)}>
+                <Trail i={c.lessons.length} />
                 <span className={`node chal ${state.chapterDone[c.id] ? 'done' : allDone ? 'ready' : ''}`}><Icon name={state.chapterDone[c.id] ? 'check' : 'trophy'} size={26} /></span>
                 <span className="lr-text"><b>אתגר הפרק</b><small>{state.chapterDone[c.id] ? 'הושלם · השדרוג הגדול התקבל' : 'שדרוג גדול לעולם של הכריש'}</small></span>
               </button>

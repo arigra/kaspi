@@ -16,9 +16,13 @@ export default function Choice({ screen, next, look }) {
       <div className="body">
         <div className="fade-in">
           <div className="ch-top">
-            <div className="ch-hero"><Hero look={look} view="bust" mood={o ? (o.good ? 'happy' : 'oops') : ''} /></div>
-            <h2 className="q">{screen.prompt}</h2>
+            <div className="ch-hero"><Hero look={look} view="bust" mood={o ? (o.good ? 'happy' : 'oops') : (screen.scene?.mood || '')} /></div>
+            <div className="ch-say">
+              {screen.scene?.text && <p className="ch-scene">{screen.scene.text}</p>}
+              {screen.scene?.say && !o && <span className="hs-say small">{screen.scene.say}</span>}
+            </div>
           </div>
+          <h2 className="q">{screen.prompt}</h2>
           {!o ? (
             <div className="opts">
               {screen.options.map((op, i) => (
