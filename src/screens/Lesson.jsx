@@ -9,20 +9,28 @@ import Swipe from './lesson/Swipe.jsx'
 import SurplusTool from './lesson/SurplusTool.jsx'
 import Mission from './lesson/Mission.jsx'
 import CardFlip from './lesson/CardFlip.jsx'
+import HeroScene from './lesson/HeroScene.jsx'
+import Choice from './lesson/Choice.jsx'
+import Cards from './lesson/Cards.jsx'
+import Live from './lesson/Live.jsx'
 import { sfx } from '../lib/sound.js'
 import { GOOD, OFF, pick } from '../lib/format.js'
 
 const TOOLS = { surplus: SurplusTool }
-const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission }
+const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission, scene: HeroScene, choice: Choice, cards: Cards, live: Live }
 
 const HINTS = {
   story: 'מכירים את מאיה? הנה היא.',
+  scene: '',
+  choice: 'אין פה טעויות. יש רק תוצאות.',
+  cards: 'הקישו על הכרטיס.',
+  live: 'שחקו עם המספר ותראו מה קורה.',
   predict: 'תנחשו — אין פה תשובה לא נכונה.',
   slider: 'גררו לניחוש שלכם. חשבון בראש מותר.',
   explain: 'רעיון אחד, וממשיכים.',
   sort: 'הקישו על פריט, ואז על הקטגוריה שלו.',
   swipe: 'תחליקו ימינה לעובדה, שמאלה למיתוס — או לחצו.',
-  tool: 'עכשיו עם מספרים — שלכם, או של מאיה.',
+  tool: 'עכשיו עם מספרים — שלכם, או של הכריש.',
   mission: 'משימה קטנה לעולם האמיתי. אין לחץ.',
   card: 'זה נכנס לאוסף שלכם.'
 }
@@ -30,7 +38,7 @@ const HINTS = {
 const GUIDE_NAMES = { kaspi: 'כספי', johnny: 'ג׳וני' }
 
 // Plays one lesson, or a chapter challenge (card === null).
-export default function Lesson({ screens, card, guide = 'kaspi', challenge = false, profile, setProfile, onClose, onFinish }) {
+export default function Lesson({ look, screens, card, guide = 'kaspi', challenge = false, profile, setProfile, onClose, onFinish }) {
   const all = card ? [...screens, { type: 'card' }] : screens
   const [si, setSi] = useState(0)
   const [reaction, setReaction] = useState(null)
@@ -59,7 +67,8 @@ export default function Lesson({ screens, card, guide = 'kaspi', challenge = fal
 
   const hint = challenge && si === 0 && !reaction ? 'אתגר קצר על כל הפרק. בלי לחץ.' : HINTS[s.type]
   const Screen = s.type === 'tool' ? TOOLS[s.tool] : SCREENS[s.type]
-  const props = { key: si, screen: s, react, next, profile, setProfile }
+  const props = { key: si, screen: s, react, next, profile, setProfile, look }
+  const showGuide = !['scene', 'choice'].includes(s.type)
 
   return (
     <>
@@ -70,13 +79,13 @@ export default function Lesson({ screens, card, guide = 'kaspi', challenge = fal
         </div>
         {challenge && <span className="chaltag">אתגר פרק</span>}
       </div>
-      <div className="guide">
+      {showGuide && <div className="guide">
         <div className="gshark">
           <Shark guide={guide} math={!!s.math} mood={reaction && !reaction.played ? reaction.mood : ''} />
           <span className="gname">{GUIDE_NAMES[guide]}</span>
         </div>
         <div className={`bubble ${reaction ? reaction.mood : ''}`} aria-live="polite">{reaction ? reaction.text : hint}</div>
-      </div>
+      </div>}
       {s.type === 'card' ? <CardFlip key={si} card={card} next={next} /> : <Screen {...props} />}
     </>
   )

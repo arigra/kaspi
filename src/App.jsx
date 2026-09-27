@@ -9,7 +9,7 @@ import { LessonDone, UpgradeReveal } from './screens/Done.jsx'
 import Chapters from './screens/Chapters.jsx'
 import Cards from './screens/Cards.jsx'
 import { ItemSheet, SettingsSheet, WorldSheet } from './screens/Sheets.jsx'
-import { coinsOf, chaptersOf } from './content/upgrades.js'
+import { coinsOf, chaptersOf, heroLook } from './content/upgrades.js'
 
 export default function App() {
   const [state, setState] = usePersistentState()
@@ -80,7 +80,7 @@ export default function App() {
     const c = chapterById(play.chapterId)
     const isChallenge = play.lesson === -1
     screen = (
-      <Lesson key={`${c.id}-${play.lesson}`} guide={c.guide} challenge={isChallenge}
+      <Lesson look={heroLook(coinsOf(state))} key={`${c.id}-${play.lesson}`} guide={c.guide} challenge={isChallenge}
         screens={isChallenge ? challengeScreens(c) : c.lessons[play.lesson].screens}
         card={isChallenge ? null : c.lessons[play.lesson].card}
         profile={state.profile} setProfile={(profile) => update({ profile })}
