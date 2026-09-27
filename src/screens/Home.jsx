@@ -68,7 +68,7 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
         <div className="sand" /><div className="cave" />
         {state.reef.map((k, i) => (
           <button key={k} className="item" aria-label="פריט בשונית"
-            style={{ left: `calc(50% + ${-6 + i * 58}px)` }} onClick={() => actions.openItem(k)}>
+            style={{ left: `${4 + (i % 8) * 12}%`, bottom: 56 + Math.floor(i / 8) * 48 }} onClick={() => actions.openItem(k)}>
             <ReefItem k={k} />
           </button>
         ))}
