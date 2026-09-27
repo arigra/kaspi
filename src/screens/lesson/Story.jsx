@@ -1,3 +1,4 @@
+import Maya from '../../components/Maya.jsx'
 import { Foot, Cta } from './parts.jsx'
 
 export default function Story({ screen, next }) {
@@ -5,7 +6,7 @@ export default function Story({ screen, next }) {
     <>
       <div className="body">
         <div className="story fade-in">
-          <div className="maya"><i /><i /><b /><em>{screen.character}</em></div>
+          <Maya name={screen.character} />
           <div className="saybox">{screen.text}</div>
         </div>
       </div>
