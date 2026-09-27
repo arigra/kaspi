@@ -5,10 +5,11 @@ import { sfx, setMuted } from './lib/sound.js'
 import Onboarding from './screens/Onboarding.jsx'
 import Home from './screens/Home.jsx'
 import Lesson from './screens/Lesson.jsx'
-import { LessonDone, ReefReveal } from './screens/Done.jsx'
+import { LessonDone, UpgradeReveal } from './screens/Done.jsx'
 import Chapters from './screens/Chapters.jsx'
 import Cards from './screens/Cards.jsx'
 import { ItemSheet, SettingsSheet } from './screens/Sheets.jsx'
+import { heroLevel, coinsOf } from './content/upgrades.js'
 
 export default function App() {
   const [state, setState] = usePersistentState()
@@ -88,12 +89,12 @@ export default function App() {
     const c = chapterById(play.chapterId), L = c.lessons[play.lesson]
     const allDone = (state.done[c.id] || []).length === c.lessons.length
     screen = (
-      <LessonDone title={L.title} minutes={L.minutes} cards={state.cards.length}
+      <LessonDone level={heroLevel(state)} coins={coinsOf(state)} title={L.title} minutes={L.minutes} cards={state.cards.length}
         offerChallenge={allDone && !state.chapterDone[c.id]}
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
-    screen = <ReefReveal chapter={chapterById(play.chapterId)} onHome={() => go('home')} />
+    screen = <UpgradeReveal chapter={chapterById(play.chapterId)} level={heroLevel(state)} coins={coinsOf(state)} onHome={() => go('home')} />
   } else if (view === 'chapters') {
     screen = <Chapters state={state} chapterStatus={chapterStatus} actions={actions} />
   } else if (view === 'cards') {

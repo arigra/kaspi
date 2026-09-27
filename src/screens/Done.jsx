@@ -1,16 +1,11 @@
-import Shark from '../components/Shark.jsx'
-import ReefItem from '../components/ReefItem.jsx'
+import Scene from '../components/Scene.jsx'
+import { UPGRADES } from '../content/upgrades.js'
 
-export function LessonDone({ title, minutes, cards, offerChallenge, onChallenge, onHome }) {
+export function LessonDone({ level, coins, title, minutes, cards, offerChallenge, onChallenge, onHome }) {
   return (
     <>
       <div className="celebrate fade-in">
-        <div className="bigshark">
-          <Shark mood="happy" />
-          <span className="spark" style={{ top: 4, right: 20 }}>✦</span>
-          <span className="spark" style={{ top: 30, left: 6, animationDelay: '.35s' }}>✦</span>
-          <span className="spark" style={{ bottom: 30, right: 0, fontSize: 15, animationDelay: '.6s' }}>✦</span>
-        </div>
+        <div className="ldscene"><Scene compact level={level} coins={coins} mood="happy" newCoin /></div>
         <h1>שיעור הושלם!</h1>
         <p>{title}</p>
         <div className="stats">
@@ -31,19 +26,16 @@ export function LessonDone({ title, minutes, cards, offerChallenge, onChallenge,
   )
 }
 
-export function ReefReveal({ chapter, onHome }) {
+export function UpgradeReveal({ chapter, level, coins, onHome }) {
+  const up = UPGRADES[level]
   return (
     <>
       <div className="top"><div className="logo">כספי<b>.</b></div></div>
-      <div className="reveal-reef">
-        <div className="sand" /><div className="cave" />
-        <div className="rshark"><Shark mood="happy" bubbles /></div>
-        <div className="newitem"><ReefItem k={chapter.item.key} /></div>
-      </div>
-      <div className="reefcap fade-in">
-        <small>הפרק "{chapter.title}" הושלם · פריט חדש לשונית</small>
-        <h1>{chapter.item.name}</h1>
-        <p>{chapter.item.text}</p>
+      <div className="ldscene"><Scene level={level} coins={coins} mood="party" /></div>
+      <div className="upg fade-in">
+        <small>הפרק "{chapter.title}" הושלם · שדרוג חדש!</small>
+        <h1>{up ? up.name : 'עוד מטבע לצנצנת'}</h1>
+        <p>{up ? up.text : 'כבר השגתם את כל השדרוגים. הכריש פשוט שמח.'}</p>
       </div>
       <div className="spacer" />
       <div className="foot"><button className="cta" onClick={onHome}>חזרה למסלול</button></div>
