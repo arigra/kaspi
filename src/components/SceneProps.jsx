@@ -38,7 +38,7 @@ export function SharkGirl({ skin = '#f3b3c8', deep = '#d9829f', bikini = '#e0344
       <circle cx="64" cy="102" r="6" fill="#f08aa5" opacity=".6" /><circle cx="136" cy="102" r="6" fill="#f08aa5" opacity=".6" />
       <circle cx="140" cy="140" r="0" />
       <g><rect x="62" y="44" width="30" height="16" rx="7" fill="#2a1d25" /><rect x="108" y="44" width="30" height="16" rx="7" fill="#2a1d25" /><path d="M92 52 h16" stroke="#2a1d25" strokeWidth="3" /></g>
-      <text className="gf-heart" x="156" y="36" fontSize="24">💋</text>
+      <path className="gf-heart" d="M166 38s-12-7-12-15a6 6 0 0 1 12-3 6 6 0 0 1 12 3c0 8-12 15-12 15z" fill="#e0344b" />
     </svg>
   )
 }

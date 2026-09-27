@@ -57,7 +57,7 @@ export default function Lesson({ look, screens, card, guide = 'kaspi', challenge
     ok ? sfx.good() : sfx.soft()
   }
   const next = {
-    label: isLast ? (challenge ? 'סיום האתגר ✦' : 'סיום השיעור') : 'המשך',
+    label: isLast ? (challenge ? 'סיום האתגר' : 'סיום השיעור') : 'המשך',
     go: () => {
       sfx.tap()
       if (isLast) onFinish()

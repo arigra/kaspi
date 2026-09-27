@@ -3,6 +3,7 @@ import { heroLook, coinsOf } from '../content/upgrades.js'
 import Header from './Header.jsx'
 import { STAGES } from '../content/index.js'
 import { iconFor } from '../content/icons.js'
+import Icon from '../components/Icon.jsx'
 
 export default function Home({ state, stageIndex, currentChapterId, chapterStatus, actions }) {
   const stage = STAGES[stageIndex]
@@ -11,7 +12,7 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
   const heroBtn = (
     <button className="pathhero" aria-label="העולם של הכריש" onClick={actions.openWorld}>
       <Hero look={heroLook(coinsOf(state))} view="bust" />
-      <span className="herotag">🪙 {coinsOf(state)}</span>
+      <span className="herotag"><Icon name="coin" size={13} /> {coinsOf(state)}</span>
     </button>
   )
 
@@ -52,15 +53,15 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
                     style={i % 2 === 0 ? { marginInlineEnd: 70 } : { marginInlineStart: 50 }}
                     onClick={() => actions.startLesson(c.id, i)}>
                     {isNext && <span className="startbub">להתחיל</span>}
-                    <span className="isle-ico">{iconFor(l)}</span>
-                    {isDone && <span className="isle-done">✓</span>}
+                    <span className="isle-ico"><Icon name={iconFor(l)} size={30} stroke={2.2} /></span>
+                    {isDone && <span className="isle-done"><Icon name="check" size={14} stroke={3} /></span>}
                   </button>
                 )
               })}
               <button aria-label="אתגר פרק" style={{ marginInlineEnd: 40 }}
                 className={`node chal ${state.chapterDone[c.id] ? 'done' : allDone ? 'ready' : ''}`}
                 onClick={() => actions.startChallenge(c.id)}>
-                {state.chapterDone[c.id] ? '✓' : '🏆'}
+                <Icon name={state.chapterDone[c.id] ? 'check' : 'trophy'} size={30} />
               </button>
             </div>
           </div>

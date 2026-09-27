@@ -18,7 +18,7 @@ export function LessonDone({ lessons, title, minutes, cards, offerChallenge, onC
       <div className="foot">
         {offerChallenge ? (
           <>
-            <button className="cta" onClick={onChallenge}>לאתגר הפרק 🏆</button>
+            <button className="cta" onClick={onChallenge}>לאתגר הפרק</button>
             <div style={{ height: 10 }} />
             <button className="cta ghost" onClick={onHome}>אחר כך</button>
           </>

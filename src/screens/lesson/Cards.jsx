@@ -7,7 +7,7 @@ export default function Cards({ screen, next }) {
   const [i, setI] = useState(0)
   const last = i === screen.cards.length - 1
   const c = screen.cards[i]
-  const [emoji, text] = Array.isArray(c) ? c : ['💡', c]
+  const text = Array.isArray(c) ? c[1] : c
   const [showSource, setShowSource] = useState(false)
   return (
     <>
@@ -15,7 +15,6 @@ export default function Cards({ screen, next }) {
         <div className="storycards">
           <div className="sc-dots">{screen.cards.map((_, k) => <i key={k} className={k <= i ? 'on' : ''} />)}</div>
           <button className="scard fade-in" key={i} onClick={() => { if (!last) { setI(i + 1); sfx.tap() } }}>
-            <div className="sc-emoji">{emoji}</div>
             {i === 0 && screen.title && <h3>{screen.title}</h3>}
             <p>{text}</p>
             {!last && <small>הקישו להמשך</small>}

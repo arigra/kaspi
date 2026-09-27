@@ -386,3 +386,10 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .lv-stack div{display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:12px; transition:flex .2s; min-width:0; overflow:hidden; white-space:nowrap}
 .lv-cap{text-align:center; font-size:15.5px; line-height:1.5}
 .hero.oops .h-all{animation:shake .6s ease-in-out 2}
+.node.isle .isle-ico{color:#6b5a2e; opacity:.8; display:grid; place-items:center}
+.node.isle.active .isle-ico{color:#8a5a12; opacity:1}
+.node.isle.done .isle-ico{color:var(--good); opacity:1}
+.isle-done svg{display:block}
+.node.chal{color:var(--cta)}
+.iconbtn svg{vertical-align:middle}
+.herotag svg{vertical-align:-2px; color:#b8862b}

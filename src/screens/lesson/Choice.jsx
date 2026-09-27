@@ -22,12 +22,12 @@ export default function Choice({ screen, next, look }) {
           {!o ? (
             <div className="opts">
               {screen.options.map((op, i) => (
-                <button key={i} className="opt" onClick={() => choose(i)}><span className="l">{op.emoji || '👉'}</span><span>{op.t}</span></button>
+                <button key={i} className="opt" onClick={() => choose(i)}><span className="l">{'אבגד'[i]}</span><span>{op.t}</span></button>
               ))}
             </div>
           ) : (
             <div className={`outcome ${o.good ? 'good' : 'bad'} fade-in`}>
-              <div className="oc-pick">{o.emoji || '👉'} {o.t}</div>
+              <div className="oc-pick">{o.t}</div>
               <div className="oc-out">{o.out}</div>
               {!o.good && <button className="linkbtn" onClick={() => setPicked(null)}>לנסות משהו אחר</button>}
             </div>

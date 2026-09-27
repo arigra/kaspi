@@ -1,3 +1,4 @@
+import Icon from '../../components/Icon.jsx'
 import { Foot, Cta } from './parts.jsx'
 
 export default function Mission({ screen, react, next }) {
@@ -6,7 +7,7 @@ export default function Mission({ screen, react, next }) {
       <div className="body">
         <div className="fade-in">
           <div className="mission">
-            <div className="ic" aria-hidden="true">📋</div>
+            <div className="ic" aria-hidden="true"><Icon name="doc" size={30} /></div>
             <div><h3>משימה לעולם האמיתי</h3><p>{screen.text}</p></div>
           </div>
         </div>

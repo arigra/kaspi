@@ -13,7 +13,7 @@ export default function CardFlip({ card, next }) {
     <>
       <div className="body">
         <div className="fade-in">
-          <div className="newcard">כרטיס חדש לאוסף ✦</div>
+          <div className="newcard">כרטיס חדש לאוסף</div>
           <div className="cardwrap" onClick={() => { setFlipped((f) => !f); sfx.tap() }}>
             <div className={`flip ${flipped ? 'on' : ''}`}>
               <div className="face front"><small>שאלה</small><p>{card.front}</p><small>הקישו כדי להפוך</small></div>
