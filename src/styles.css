@@ -279,3 +279,13 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 
 .maya-wrap{position:relative; width:104px; height:112px; filter:drop-shadow(0 5px 0 rgba(0,0,0,.08))}
 .maya-wrap em{position:absolute; bottom:0; left:50%; transform:translateX(-50%); background:var(--card); border:2px solid var(--line); border-radius:10px; font-style:normal; font-weight:800; font-size:12px; padding:2px 8px; white-space:nowrap}
+/* lesson islands */
+.node.isle{width:84px; height:62px; border-radius:50% 50% 46% 46% / 60% 60% 40% 40%; background:radial-gradient(ellipse at 50% 35%, #f6e6bf 0 55%, #e9d09a 56% 100%); box-shadow:0 0 0 7px rgba(134,191,194,.35), 0 8px 0 7px rgba(47,110,75,.10); color:inherit}
+.node.isle .isle-ico{font-size:30px; line-height:1; position:relative; top:-4px; filter:saturate(.85)}
+.node.isle:not(.done):not(.active) .isle-ico{opacity:.75}
+.node.isle.active{width:96px; height:72px; background:radial-gradient(ellipse at 50% 35%, #ffe7ad 0 55%, #f0c46a 56% 100%); box-shadow:0 0 0 8px rgba(214,150,52,.35), 0 8px 0 8px rgba(0,0,0,.06)}
+.node.isle.active .isle-ico{font-size:36px}
+.node.isle.done{background:radial-gradient(ellipse at 50% 35%, #d9efd9 0 55%, #a9d3b0 56% 100%); box-shadow:0 0 0 7px rgba(47,110,75,.25), 0 8px 0 7px rgba(0,0,0,.05)}
+.isle-done{position:absolute; top:-6px; left:-4px; width:24px; height:24px; border-radius:50%; background:var(--good); color:#fff; font-size:14px; font-weight:900; display:grid; place-items:center; box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.reefbg .coral{position:absolute; line-height:1; pointer-events:none; animation:sway 4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}

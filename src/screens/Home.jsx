@@ -2,10 +2,12 @@ import Shark from '../components/Shark.jsx'
 import ReefItem from '../components/ReefItem.jsx'
 import Header from './Header.jsx'
 import { STAGES } from '../content/index.js'
+import { iconFor } from '../content/icons.js'
 
 export default function Home({ state, stageIndex, currentChapterId, chapterStatus, actions }) {
   const stage = STAGES[stageIndex]
   let activeShown = false
+  const lessonsDone = Object.values(state.done).reduce((a, d) => a + d.length, 0)
 
   return (
     <>
@@ -39,11 +41,12 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
                 if (isNext) activeShown = true
                 return (
                   <button key={i} aria-label={l.title}
-                    className={`node ${isDone ? 'done' : isNext ? 'active' : ''}`}
+                    className={`node isle ${isDone ? 'done' : isNext ? 'active' : ''}`}
                     style={i % 2 === 0 ? { marginInlineEnd: 70 } : { marginInlineStart: 50 }}
                     onClick={() => actions.startLesson(c.id, i)}>
                     {isNext && <span className="startbub">להתחיל</span>}
-                    {isDone ? '✓' : i + 1}
+                    <span className="isle-ico">{iconFor(l)}</span>
+                    {isDone && <span className="isle-done">✓</span>}
                   </button>
                 )
               })}
@@ -66,6 +69,11 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
         <span className="weed" style={{ right: '20%', height: 40, animationDelay: '1s' }} />
         <div className="swimmer"><Shark /></div>
         <div className="sand" /><div className="cave" />
+        {Array.from({ length: Math.min(lessonsDone, 40) }, (_, i) => (
+          <span key={'c' + i} className="coral" style={{ left: `${(i * 37) % 94 + 2}%`, bottom: 30 + ((i * 13) % 22), fontSize: 18 + ((i * 7) % 12) }}>
+            {['🪸', '🌿', '🪸', '🐚', '🪸', '🐠'][i % 6]}
+          </span>
+        ))}
         {state.reef.map((k, i) => (
           <button key={k} className="item" aria-label="פריט בשונית"
             style={{ left: `${4 + (i % 8) * 12}%`, bottom: 56 + Math.floor(i / 8) * 48 }} onClick={() => actions.openItem(k)}>
