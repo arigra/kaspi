@@ -5,7 +5,7 @@ import { sfx } from '../lib/sound.js'
 
 export default function Onboarding({ onDone }) {
   const [n, setN] = useState(0)
-  const total = ADVICE.length + 3
+  const total = ADVICE.length + 1
   const nextStep = () => { setN(n + 1); sfx.tap() }
   const finish = () => { sfx.done(); onDone() }
 
@@ -19,24 +19,6 @@ export default function Onboarding({ onDone }) {
       </div>
     )
     cta = <button className="cta" onClick={nextStep}>{n === ADVICE.length - 1 ? 'מכירים את זה' : 'הבא'}</button>
-  } else if (n === ADVICE.length) {
-    body = (
-      <div className="obtext fade-in">
-        <div className="obshark"><Shark mood="think" /></div>
-        <h1>העצות האלה לא שגויות — הן פשוט לא מסבירות כלום.</h1>
-        <p>כספי כאן כדי להסביר מה עומד מאחוריהן, ומתי כל אחת מהן נכונה.</p>
-      </div>
-    )
-    cta = <button className="cta" onClick={nextStep}>המשך</button>
-  } else if (n === ADVICE.length + 1) {
-    body = (
-      <div className="obtext fade-in">
-        <div className="obshark"><Shark /></div>
-        <h1>חלק מהדברים ייראו לכם מובנים מאליהם.</h1>
-        <p>וזה בסדר. גם הבסיס שווה מעבר, כי עליו נבנית ההבנה. ותמיד אפשר לדלג.</p>
-      </div>
-    )
-    cta = <button className="cta" onClick={nextStep}>המשך</button>
   } else {
     body = (
       <div className="obtext fade-in">
