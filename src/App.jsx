@@ -17,6 +17,8 @@ export default function App() {
   const [play, setPlay] = useState(null)   // { chapterId, lesson } — lesson -1 is the challenge
   const [sheet, setSheet] = useState(null) // { type: 'item' | 'settings', key? }
   const [toast, setToast] = useState(null)
+  const [viewStage, setViewStage] = useState(null)
+  const [focusChapter, setFocusChapter] = useState(null)
 
   useEffect(() => { setMuted(state.muted) }, [state.muted])
 
@@ -31,10 +33,19 @@ export default function App() {
     return 'open'
   }
   const current = CHAPTERS.find((c) => !c.writing && !state.chapterDone[c.id] && !state.skipped[c.id])
-  const stageIndex = current ? current.stage : 0
+  const stageIndex = viewStage ?? (current ? current.stage : 0)
+  let next = null
+  for (const c of CHAPTERS) {
+    if (c.writing || state.chapterDone[c.id] || state.skipped[c.id]) continue
+    const d = state.done[c.id] || []
+    const i = c.lessons.findIndex((_, k) => !d.includes(k))
+    if (i >= 0) { next = { chapter: c, lesson: c.lessons[i], index: i }; break }
+  }
+  const setStage = (n) => { setViewStage(n); setFocusChapter(null); window.scrollTo(0, 0); sfx.tap() }
 
   const actions = {
     goHome: () => go('home'),
+    setProfile: (profile) => update({ profile }),
     goCards: () => go('cards'),
     goChapters: () => go('chapters'),
     openSettings: () => setSheet({ type: 'settings' }),
@@ -43,10 +54,11 @@ export default function App() {
     skipChapter: (id) => { update((s) => ({ skipped: { ...s.skipped, [id]: true } })); sfx.tap(); flash('דילגתם — אפשר לחזור בכל רגע') },
     openChapter: (id) => {
       if (chapterById(id).writing) { flash('הפרק הזה עוד נכתב'); return }
-      update((s) => ({ skipped: { ...s.skipped, [id]: false } })); go('home')
+      update((s) => ({ skipped: { ...s.skipped, [id]: false } })); setViewStage(chapterById(id).stage); setFocusChapter(id); setView('home'); setSheet(null)
     },
     startLesson: (chapterId, lesson) => {
       update((s) => ({ skipped: { ...s.skipped, [chapterId]: false } }))
+      setViewStage(chapterById(chapterId).stage); setFocusChapter(null)
       setPlay({ chapterId, lesson }); sfx.tap(); go('lesson')
     },
     startChallenge: (chapterId) => { setPlay({ chapterId, lesson: -1 }); sfx.tap(); go('lesson') }
@@ -88,10 +100,12 @@ export default function App() {
     )
   } else if (view === 'lessonDone') {
     const c = chapterById(play.chapterId), L = c.lessons[play.lesson]
-    const allDone = (state.done[c.id] || []).length === c.lessons.length
+    const doneN = (state.done[c.id] || []).length
+    const allDone = doneN === c.lessons.length
     screen = (
-      <LessonDone lessons={coinsOf(state)} title={L.title} minutes={L.minutes} cards={state.cards.length}
-        offerChallenge={allDone && !state.chapterDone[c.id]}
+      <LessonDone lessons={coinsOf(state)} title={L.title} chaptersDone={chaptersOf(state)} chapterLeft={`${c.lessons.length - doneN} שיעורים ואתגר`}
+        offerChallenge={allDone && !state.chapterDone[c.id]} next={next}
+        onNext={() => actions.startLesson(next.chapter.id, next.index)}
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
@@ -101,7 +115,7 @@ export default function App() {
   } else if (view === 'cards') {
     screen = <Cards state={state} actions={actions} />
   } else {
-    screen = <Home state={state} stageIndex={stageIndex} currentChapterId={current?.id} chapterStatus={chapterStatus} actions={actions} />
+    screen = <Home state={state} stageIndex={stageIndex} setStage={setStage} next={next} focusChapter={focusChapter} chapterStatus={chapterStatus} actions={actions} />
   }
 
   return (

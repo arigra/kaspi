@@ -1,18 +1,27 @@
+import { useEffect, useState } from 'react'
 import Scene from '../components/Scene.jsx'
 import Hero from '../components/Hero.jsx'
 import { heroLook, lessonUpgrade, chapterUpgrade } from '../content/upgrades.js'
 
-export function LessonDone({ lessons, title, minutes, cards, offerChallenge, onChallenge, onHome }) {
+export function LessonDone({ lessons, title, chaptersDone, chapterLeft, offerChallenge, next, onNext, onChallenge, onHome }) {
+  const [after, setAfter] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setAfter(true), 1100); return () => clearTimeout(t) }, [])
+  const gained = lessonUpgrade(lessons)
+  const coming = lessonUpgrade(lessons + 1)
+  const big = chapterUpgrade(chaptersDone + 1)
   return (
     <>
       <div className="celebrate fade-in">
-        <div className="bust"><div className="glow" /><Hero look={heroLook(lessons)} view="bust" mood="happy" /></div>
-        {lessonUpgrade(lessons) && <div className="newtag">חדש: {lessonUpgrade(lessons)}</div>}
-        <h1>שיעור הושלם!</h1>
-        <p>{title}</p>
-        <div className="stats">
-          <div className="stat"><b className="ltr">{cards}</b><span>כרטיסים באוסף</span></div>
-          <div className="stat"><b className="ltr">~{minutes}</b><span>דקות</span></div>
+        <small className="ld-title">שיעור הושלם · {title}</small>
+        <div className={`bust morph ${after ? 'after' : ''}`}>
+          <div className="glow" />
+          <div className="poof" />
+          <Hero look={heroLook(after ? lessons : lessons - 1)} view="bust" mood={after ? 'happy' : ''} />
+        </div>
+        {gained && <div className={`newtag ${after ? 'show' : ''}`}>{after ? <>הכריש קיבל: <b>{gained}</b></> : 'רגע...'}</div>}
+        <div className="upnext">
+          {coming && <div><span>בשיעור הבא</span><b>{coming}</b></div>}
+          {big && <div><span>{offerChallenge ? 'באתגר הפרק' : `בסוף הפרק (עוד ${chapterLeft})`}</span><b>{big.name}</b></div>}
         </div>
       </div>
       <div className="foot">
@@ -22,7 +31,13 @@ export function LessonDone({ lessons, title, minutes, cards, offerChallenge, onC
             <div style={{ height: 10 }} />
             <button className="cta ghost" onClick={onHome}>אחר כך</button>
           </>
-        ) : <button className="cta" onClick={onHome}>המשך</button>}
+        ) : next ? (
+          <>
+            <button className="cta" onClick={onNext}>להמשיך: {next.lesson.title}</button>
+            <div style={{ height: 10 }} />
+            <button className="cta ghost" onClick={onHome}>למסלול</button>
+          </>
+        ) : <button className="cta" onClick={onHome}>למסלול</button>}
       </div>
     </>
   )

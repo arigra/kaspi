@@ -50,18 +50,24 @@ function Teeth({ look }) {
   )
 }
 
+export const PALETTES = {
+  blue: { hi: '#9fc0d6', lo: '#5f86a3', hand: '#7fa2bc', line: '#4a6f8a' },
+  gold: { hi: '#f2c46a', lo: '#c98f2e', hand: '#e0a947', line: '#8a5a12' },
+  green: { hi: '#9fcfa8', lo: '#4f8a61', hand: '#79b286', line: '#2f5a3c' }
+}
+
 const SHIRT = {
   tank: '#e8e1cf', tee: '#f4f1e8', hawaii: '#f08a3c', button: '#dbe9f7', silk: '#7a3d8f', blazer: '#233454', suitWhite: '#f6f3ea'
 }
 const LONG_SLEEVE = { button: '#dbe9f7', silk: '#7a3d8f', blazer: '#233454', suitWhite: '#f6f3ea' }
 const PANTS = { jeans: '#3b5a86', linen: '#efe7d3', suit: '#233454' }
 
-function Shirt({ look }) {
+function Shirt({ look, pal, pk }) {
   const s = look.shirt
   if (s === 'none') return (
     <>
       <path d="M118 196 q32 14 68 0 l-2 60 q-32 10 -64 0z" fill="#e9dcc4" opacity=".85" />
-      <path d="M104 214 q8 4 14 0 M104 226 q8 4 14 0 M186 214 q8 4 14 0 M186 226 q8 4 14 0" stroke="#4a6f8a" strokeWidth="2" fill="none" opacity=".6" />
+      <path d="M104 214 q8 4 14 0 M104 226 q8 4 14 0 M186 214 q8 4 14 0 M186 226 q8 4 14 0" stroke={pal.line} strokeWidth="2" fill="none" opacity=".6" />
       <circle cx="150" cy="246" r="3" fill="#b99f7a" />
     </>
   )
@@ -69,7 +75,7 @@ function Shirt({ look }) {
     <>
       <path d="M104 186 q46 -10 92 0 l12 70 l-10 -6 l-8 10 l-9 -8 l-10 9 l-9 -9 l-10 8 l-9 -9 l-9 9 l-9 -8 l-10 10 l-8 -9 l-9 6z" fill={SHIRT.tank} />
       <path d="M104 186 q-4 -8 6 -10 M196 186 q4 -8 -6 -10" stroke={SHIRT.tank} strokeWidth="8" strokeLinecap="round" />
-      <circle cx="170" cy="222" r="7" fill="#d9ceb4" /><circle cx="130" cy="240" r="5" fill="#d9ceb4" /><path d="M186 232 l8 6 l-6 4z" fill="#9fc0d6" />
+      <circle cx="170" cy="222" r="7" fill="#d9ceb4" /><circle cx="130" cy="240" r="5" fill="#d9ceb4" /><path d="M186 232 l8 6 l-6 4z" fill={pal.hi} />
     </>
   )
   const base = <path d="M96 186 q54 -22 112 0 l4 88 h-120z" fill={SHIRT[s]} />
@@ -91,7 +97,7 @@ function Shirt({ look }) {
   )
   const silk = (
     <>{base}
-      <path d="M124 180 l26 44 l26 -44z" fill="url(#h-skin)" />
+      <path d="M124 180 l26 44 l26 -44z" fill={`url(#h-skin-${pk})`} />
       <path d="M124 180 l26 44 l-10 -40z M176 180 l-26 44 l10 -40z" fill="#5e2c70" />
       <path d="M110 200 q10 30 2 70 M190 200 q-10 30 -2 70" stroke="#9a5fb0" strokeWidth="2" fill="none" opacity=".6" />
     </>
@@ -102,7 +108,7 @@ function Shirt({ look }) {
   return (
     <>
       <path d="M96 186 q54 -22 112 0 l4 88 h-120z" fill={inner} />
-      <path d="M126 180 l24 40 l24 -40z" fill={look.tie ? '#fff' : 'url(#h-skin)'} />
+      <path d="M126 180 l24 40 l24 -40z" fill={look.tie ? '#fff' : `url(#h-skin-${pk})`} />
       <path d="M92 188 q20 -14 44 -10 l14 42 l-6 56 h-50 q-10 -36 -2 -88z" fill={SHIRT[s]} />
       <path d="M208 188 q-20 -14 -44 -10 l-14 42 l6 56 h50 q10 -36 2 -88z" fill={SHIRT[s]} />
       <path d="M136 178 l14 42 l-20 -10z M164 178 l-14 42 l20 -10z" fill={lapel} />
@@ -112,7 +118,7 @@ function Shirt({ look }) {
   )
 }
 
-function Hand({ x, y, rings, skin = '#7fa2bc' }) {
+function Hand({ x, y, rings, skin }) {
   return (
     <>
       <ellipse cx={x} cy={y} rx="11" ry="9" fill={skin} />
@@ -159,7 +165,7 @@ function LeftItem({ look }) {
   )
 }
 
-function Hat({ look }) {
+function Hat({ look, pal }) {
   const h = look.hat
   if (h === 'beanie') return (
     <g transform="translate(150 60) scale(.92) translate(-150 -74)">
@@ -167,7 +173,7 @@ function Hat({ look }) {
       <g stroke="#8f3a2e" strokeWidth="2" opacity=".55" fill="none"><path d="M110 80 Q108 40 128 24" /><path d="M130 74 Q130 38 142 18" /><path d="M170 74 Q170 38 158 18" /><path d="M190 80 Q192 40 172 24" /></g>
       <path d="M80 84 Q150 62 220 84 L222 104 Q150 82 78 104z" fill="#8f3a2e" />
       <path d="M126 30 l10 -3 l2 9 l-10 3z" fill="#6b8a5c" />
-      <path className="h-fin" d="M140 22 q14 -40 40 -34 q-14 18 -16 38z" fill="#5f86a3" />
+      <path className="h-fin" d="M140 22 q14 -40 40 -34 q-14 18 -16 38z" fill={pal.lo} />
     </g>
   )
   if (h === 'cap') return (
@@ -175,10 +181,10 @@ function Hat({ look }) {
       <path d="M90 76 Q92 26 150 24 Q208 26 210 76 Q150 60 90 76z" fill="#2f6e4b" />
       <path d="M84 72 q-28 4 -36 16 q20 6 46 -6z" fill="#245a3c" />
       <circle cx="150" cy="26" r="5" fill="#245a3c" />
-      <path className="h-fin" d="M150 30 q12 -34 36 -30 q-14 16 -16 32z" fill="#5f86a3" />
+      <path className="h-fin" d="M150 30 q12 -34 36 -30 q-14 16 -16 32z" fill={pal.lo} />
     </>
   )
-  const fin = <path className="h-fin" d="M140 44 q14 -44 44 -40 q-16 18 -18 44z" fill="#5f86a3" />
+  const fin = <path className="h-fin" d="M140 44 q14 -44 44 -40 q-16 18 -18 44z" fill={pal.lo} />
   if (h === 'none') return fin
   if (h === 'fedora') return (
     <>
@@ -202,8 +208,8 @@ function Hat({ look }) {
 function Eyes({ look }) {
   const e = look.eyes
   if (e === 'none') return null
-  const frame = e === 'goldShades' ? '#f2c14e' : e === 'aviator' ? '#c9a24a' : '#e0344b'
-  const lens = e === 'cheap' ? '#2a2a35' : e === 'aviator' ? '#3c4a5a' : '#1d2430'
+  const frame = e === 'goldShades' ? '#f2c14e' : e === 'aviator' ? '#c9a24a' : e === 'readers' ? '#2c414d' : '#e0344b'
+  const lens = e === 'readers' ? 'rgba(255,255,255,.18)' : e === 'cheap' ? '#2a2a35' : e === 'aviator' ? '#3c4a5a' : '#1d2430'
   return (
     <g>
       {e === 'aviator'
@@ -215,14 +221,14 @@ function Eyes({ look }) {
   )
 }
 
-function Brows({ brow }) {
+function Brows({ brow, pal }) {
   const d = {
     sad: 'M104 100 q16 -2 36 -12 M160 88 q20 10 36 12',
     neutral: 'M104 92 q18 -4 36 -2 M160 90 q18 -2 36 2',
     confident: 'M104 88 q18 -8 36 0 M160 88 q18 -8 36 0',
     smug: 'M104 92 q18 -2 36 2 M160 82 q18 -12 36 -4'
   }[brow]
-  return <path d={d} stroke="#4a6f8a" strokeWidth="5" fill="none" strokeLinecap="round" />
+  return <path d={d} stroke={pal.line} strokeWidth="5" fill="none" strokeLinecap="round" />
 }
 
 function Chains({ look }) {
@@ -238,7 +244,8 @@ function Chains({ look }) {
   )
 }
 
-export default function Hero({ look, view = 'full', mood = '' }) {
+export default function Hero({ look, view = 'full', mood = '', palette = 'blue' }) {
+  const pk = palette, pal = PALETTES[palette]
   const sleeve = LONG_SLEEVE[look.shirt]
   const pants = PANTS[look.pants]
   const suitPants = look.pants === 'suit' && look.shirt === 'suitWhite' ? '#f6f3ea' : pants
@@ -246,15 +253,15 @@ export default function Hero({ look, view = 'full', mood = '' }) {
   return (
     <svg className={`hero ${mood}`} viewBox={vb} width="100%" height="100%" aria-hidden="true">
       <defs>
-        <radialGradient id="h-skin" cx="45%" cy="35%" r="70%"><stop offset="0" stopColor="#9fc0d6" /><stop offset="1" stopColor="#5f86a3" /></radialGradient>
-        <radialGradient id="h-belly" cx="50%" cy="30%" r="70%"><stop offset="0" stopColor="#fbf4e6" /><stop offset="1" stopColor="#e4d6bd" /></radialGradient>
+        <radialGradient id={`h-skin-${pk}`} cx="45%" cy="35%" r="70%"><stop offset="0" stopColor={pal.hi} /><stop offset="1" stopColor={pal.lo} /></radialGradient>
+        <radialGradient id={`h-belly-${pk}`} cx="50%" cy="30%" r="70%"><stop offset="0" stopColor="#fbf4e6" /><stop offset="1" stopColor="#e4d6bd" /></radialGradient>
       </defs>
       <ellipse cx="150" cy="405" rx="95" ry="10" fill="#000" opacity=".12" />
       <g className="h-all">
-        <path className="h-tail" d="M190 330 q55 10 70 -30 q-10 40 20 60 q-45 5 -80 -10z" fill="#5f86a3" />
+        <path className="h-tail" d="M190 330 q55 10 70 -30 q-10 40 20 60 q-45 5 -80 -10z" fill={pal.lo} />
         {/* legs + trousers */}
-        <path d="M112 325 q-6 40 -4 70 h30 q2 -30 -2 -70z" fill={suitPants || 'url(#h-skin)'} />
-        <path d="M162 325 q-2 40 2 70 h30 q2 -30 -6 -70z" fill={suitPants || 'url(#h-skin)'} />
+        <path d="M112 325 q-6 40 -4 70 h30 q2 -30 -2 -70z" fill={suitPants || `url(#h-skin-${pk})`} />
+        <path d="M162 325 q-2 40 2 70 h30 q2 -30 -6 -70z" fill={suitPants || `url(#h-skin-${pk})`} />
         {/* shoes */}
         {look.shoes === 'flipMismatch' && <><ellipse cx="118" cy="398" rx="26" ry="7" fill="#c9533f" /><ellipse cx="182" cy="398" rx="26" ry="7" fill="#3f7fc9" /><path d="M112 392 l6 -8 l6 8" stroke="#7a2e22" strokeWidth="3" fill="none" /><path d="M176 392 l6 -8 l6 8" stroke="#224f7a" strokeWidth="3" fill="none" /></>}
         {look.shoes === 'flip' && <><ellipse cx="118" cy="398" rx="26" ry="7" fill="#3f7fc9" /><ellipse cx="182" cy="398" rx="26" ry="7" fill="#3f7fc9" /><path d="M112 392 l6 -8 l6 8 M176 392 l6 -8 l6 8" stroke="#224f7a" strokeWidth="3" fill="none" /></>}
@@ -279,22 +286,22 @@ export default function Hero({ look, view = 'full', mood = '' }) {
         {look.pocketsOut && <><path d="M98 280 q-18 6 -14 24 q12 4 18 -10z" fill="#efe6d2" stroke="#b8a67f" strokeWidth="2" /><path d="M206 280 q18 6 14 24 q-12 4 -18 -10z" fill="#efe6d2" stroke="#b8a67f" strokeWidth="2" /></>}
 
         <g className="h-upper">
-          <path d="M92 190 q-6 50 4 86 h112 q10 -36 4 -86 q-58 -26 -120 0z" fill="url(#h-skin)" />
-          <Shirt look={look} />
+          <path d="M92 190 q-6 50 4 86 h112 q10 -36 4 -86 q-58 -26 -120 0z" fill={`url(#h-skin-${pk})`} />
+          <Shirt look={look} pal={pal} pk={pk} />
           {look.tie && <path d="M150 190 l-7 8 l7 44 l7 -44z" fill="#c0392b" />}
           <Chains look={look} />
           {look.fur && <path d="M84 196 q10 -26 40 -22 q-8 12 -2 20 q-14 -2 -18 12 q-10 -6 -20 -10z M216 196 q-10 -26 -40 -22 q8 12 2 20 q14 -2 18 12 q10 -6 20 -10z" fill="#8a6a4a" stroke="#6b4e32" strokeWidth="2" />}
 
           <g className="h-armL">
-            <path d="M96 200 q-34 10 -44 40 q-4 12 8 12 q16 -24 40 -30z" fill={sleeve || 'url(#h-skin)'} />
+            <path d="M96 200 q-34 10 -44 40 q-4 12 8 12 q16 -24 40 -30z" fill={sleeve || `url(#h-skin-${pk})`} />
             {look.cufflinks && <circle cx="60" cy="243" r="3" fill="#f2c14e" />}
             {look.bracelet && <path d="M52 240 q8 -6 16 0" stroke="#f2c14e" strokeWidth="3" fill="none" />}
             {look.watch2 && <rect x="52" y="236" width="14" height="8" rx="2" fill="#e8eef2" stroke="#9fb3c9" strokeWidth="1.5" transform="rotate(-35 59 240)" />}
             <LeftItem look={look} />
-            <Hand x={56} y={250} rings={Math.max(0, look.rings - 3)} />
+            <Hand x={56} y={250} rings={Math.max(0, look.rings - 3)} skin={pal.hand} />
           </g>
           <g className="h-armR">
-            <path d="M208 200 q34 10 44 40 q4 12 -8 12 q-16 -24 -40 -30z" fill={sleeve || 'url(#h-skin)'} />
+            <path d="M208 200 q34 10 44 40 q4 12 -8 12 q-16 -24 -40 -30z" fill={sleeve || `url(#h-skin-${pk})`} />
             {look.cufflinks && <circle cx="240" cy="243" r="3" fill="#f2c14e" />}
             {look.watch !== 'none' && (
               <rect x="232" y="235" width="15" height="9" rx="2.5" transform="rotate(35 239 240)"
@@ -302,25 +309,25 @@ export default function Hero({ look, view = 'full', mood = '' }) {
                 stroke={look.watch === 'diamond' ? '#9fd3e6' : 'none'} strokeWidth="2" />
             )}
             <RightItem look={look} />
-            <Hand x={244} y={256} rings={Math.min(look.rings, 3)} />
+            <Hand x={244} y={256} rings={Math.min(look.rings, 3)} skin={pal.hand} />
           </g>
 
           <g className="h-head">
-            <path d="M150 40 q-72 0 -86 78 q-4 50 36 70 q50 16 100 0 q40 -20 36 -70 q-14 -78 -86 -78z" fill="url(#h-skin)" />
-            <path d="M92 150 q58 40 116 0 q-4 34 -58 42 q-54 -8 -58 -42z" fill="url(#h-belly)" />
-            <path d="M78 120 q6 8 0 16 M84 116 q6 8 0 16 M222 120 q-6 8 0 16 M216 116 q-6 8 0 16" stroke="#4a6f8a" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <path d="M150 40 q-72 0 -86 78 q-4 50 36 70 q50 16 100 0 q40 -20 36 -70 q-14 -78 -86 -78z" fill={`url(#h-skin-${pk})`} />
+            <path d="M92 150 q58 40 116 0 q-4 34 -58 42 q-54 -8 -58 -42z" fill={`url(#h-belly-${pk})`} />
+            <path d="M78 120 q6 8 0 16 M84 116 q6 8 0 16 M222 120 q-6 8 0 16 M216 116 q-6 8 0 16" stroke={pal.line} strokeWidth="2.5" fill="none" strokeLinecap="round" />
             {look.earring !== 'none' && <circle cx="72" cy="140" r={look.earring === 'diamond' ? 5 : 3} fill={look.earring === 'diamond' ? '#c9f0ff' : '#f2c14e'} stroke={look.earring === 'diamond' ? '#7fc4e0' : '#b8862b'} strokeWidth="1.5" />}
             <g className="h-eyes">
               <ellipse cx="122" cy="108" rx="17" ry="19" fill="#fff" /><ellipse cx="178" cy="108" rx="17" ry="19" fill="#fff" />
               <circle cx="125" cy="112" r="8" fill="#2a2320" /><circle cx="175" cy="112" r="8" fill="#2a2320" />
               <circle cx="128" cy="109" r="2.5" fill="#fff" /><circle cx="178" cy="109" r="2.5" fill="#fff" />
             </g>
-            <Brows brow={look.brow} />
-            {look.brow === 'sad' && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke="#6f93ad" strokeWidth="2" fill="none" />}
+            <Brows brow={look.brow} pal={pal} />
+            {look.brow === 'sad' && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke={pal.hi} strokeWidth="2" fill="none" />}
             <Teeth look={look} />
             {look.bandage && <g transform="rotate(25 198 78)"><rect x="186" y="74" width="24" height="9" rx="3" fill="#e9c89a" /><path d="M192 74 v9 M198 76 v9" stroke="#c9a376" strokeWidth="1.5" /></g>}
             <Eyes look={look} />
-            <Hat look={look} />
+            <Hat look={look} pal={pal} />
           </g>
         </g>
       </g>

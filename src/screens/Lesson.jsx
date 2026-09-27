@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import Shark from '../components/Shark.jsx'
+import Hero from '../components/Hero.jsx'
+import { GUIDES } from '../content/guides.js'
 import Story from './lesson/Story.jsx'
 import Predict from './lesson/Predict.jsx'
 import Slider from './lesson/Slider.jsx'
@@ -13,11 +14,12 @@ import HeroScene from './lesson/HeroScene.jsx'
 import Choice from './lesson/Choice.jsx'
 import Cards from './lesson/Cards.jsx'
 import Live from './lesson/Live.jsx'
+import MyOwn from './lesson/MyOwn.jsx'
 import { sfx } from '../lib/sound.js'
 import { GOOD, OFF, pick } from '../lib/format.js'
 
 const TOOLS = { surplus: SurplusTool }
-const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission, scene: HeroScene, choice: Choice, cards: Cards, live: Live }
+const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission, scene: HeroScene, choice: Choice, cards: Cards, live: Live, mine: MyOwn }
 
 const HINTS = {
   story: 'מכירים את מאיה? הנה היא.',
@@ -81,7 +83,7 @@ export default function Lesson({ look, screens, card, guide = 'kaspi', challenge
       </div>
       {showGuide && <div className="guide">
         <div className="gshark">
-          <Shark guide={guide} math={!!s.math} mood={reaction && !reaction.played ? reaction.mood : ''} />
+          <Hero look={GUIDES[guide].look} palette={GUIDES[guide].palette} view="bust" mood={reaction && !reaction.played && reaction.mood === 'happy' ? 'happy' : ''} />
           <span className="gname">{GUIDE_NAMES[guide]}</span>
         </div>
         <div className={`bubble ${reaction ? reaction.mood : ''}`} aria-live="polite">{reaction ? reaction.text : hint}</div>

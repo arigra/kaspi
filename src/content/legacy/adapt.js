@@ -6,7 +6,7 @@ import { debt } from './debt.js'
 import { insurance } from './insurance.js'
 import { pension } from './pension.js'
 import { realestate } from './realestate.js'
-import { HERO, TOOL_SCENES } from './hero.js'
+import { HERO, TOOL_SCENES, MISSIONS } from './hero.js'
 import { LIVE } from './tools.js'
 
 const PATHS = { s: saving, i: investing, d: debt, n: insurance, p: pension, r: realestate }
@@ -47,6 +47,7 @@ function adapt(ref) {
       screens.push({ type: 'predict', prompt: old.question, options: old.options, answer: old.answer, reveal: old.takeaway })
     }
   }
+  if (MISSIONS[ref]) screens.push({ type: 'mission', text: MISSIONS[ref] })
   return { title: old.title, minutes: old.minutes, screens, card: { front: old.title, back: old.takeaway }, _q: old }
 }
 
