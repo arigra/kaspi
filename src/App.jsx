@@ -103,13 +103,13 @@ export default function App() {
     const doneN = (state.done[c.id] || []).length
     const allDone = doneN === c.lessons.length
     screen = (
-      <LessonDone lessons={coinsOf(state)} title={L.title} chaptersDone={chaptersOf(state)} chapterLeft={`${c.lessons.length - doneN} שיעורים ואתגר`}
+      <LessonDone lessons={coinsOf(state)}
         offerChallenge={allDone && !state.chapterDone[c.id]} next={next}
         onNext={() => actions.startLesson(next.chapter.id, next.index)}
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
-    screen = <UpgradeReveal chapter={chapterById(play.chapterId)} lessons={coinsOf(state)} chapters={chaptersOf(state)} onHome={() => go('home')} />
+    screen = <UpgradeReveal lessons={coinsOf(state)} chapters={chaptersOf(state)} onHome={() => go('home')} />
   } else if (view === 'chapters') {
     screen = <Chapters state={state} chapterStatus={chapterStatus} actions={actions} />
   } else if (view === 'cards') {

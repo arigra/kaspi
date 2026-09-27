@@ -3,26 +3,18 @@ import Scene from '../components/Scene.jsx'
 import Hero from '../components/Hero.jsx'
 import { heroLook, lessonUpgrade, chapterUpgrade } from '../content/upgrades.js'
 
-export function LessonDone({ lessons, title, chaptersDone, chapterLeft, offerChallenge, next, onNext, onChallenge, onHome }) {
+export function LessonDone({ lessons, offerChallenge, next, onNext, onChallenge, onHome }) {
   const [after, setAfter] = useState(false)
-  useEffect(() => { const t = setTimeout(() => setAfter(true), 1100); return () => clearTimeout(t) }, [])
+  useEffect(() => { const t = setTimeout(() => setAfter(true), 900); return () => clearTimeout(t) }, [])
   const gained = lessonUpgrade(lessons)
-  const coming = lessonUpgrade(lessons + 1)
-  const big = chapterUpgrade(chaptersDone + 1)
   return (
     <>
-      <div className="celebrate fade-in">
-        <small className="ld-title">שיעור הושלם · {title}</small>
+      <div className="celebrate reward">
         <div className={`bust morph ${after ? 'after' : ''}`}>
-          <div className="glow" />
           <div className="poof" />
-          <Hero look={heroLook(after ? lessons : lessons - 1)} view="bust" mood={after ? 'happy' : ''} />
+          <Hero look={heroLook(after ? lessons : lessons - 1)} view="full" mood={after ? 'happy' : ''} />
         </div>
-        {gained && <div className={`newtag ${after ? 'show' : ''}`}>{after ? <>הכריש קיבל: <b>{gained}</b></> : 'רגע...'}</div>}
-        <div className="upnext">
-          {coming && <div><span>בשיעור הבא</span><b>{coming}</b></div>}
-          {big && <div><span>{offerChallenge ? 'באתגר הפרק' : `בסוף הפרק (עוד ${chapterLeft})`}</span><b>{big.name}</b></div>}
-        </div>
+        <h1 className={`prize ${after ? 'show' : ''}`}>{after ? gained || 'שיעור הושלם!' : '\u00a0'}</h1>
       </div>
       <div className="foot">
         {offerChallenge ? (
@@ -33,7 +25,7 @@ export function LessonDone({ lessons, title, chaptersDone, chapterLeft, offerCha
           </>
         ) : next ? (
           <>
-            <button className="cta" onClick={onNext}>להמשיך: {next.lesson.title}</button>
+            <button className="cta" onClick={onNext}>לשיעור הבא</button>
             <div style={{ height: 10 }} />
             <button className="cta ghost" onClick={onHome}>למסלול</button>
           </>
@@ -43,17 +35,17 @@ export function LessonDone({ lessons, title, chaptersDone, chapterLeft, offerCha
   )
 }
 
-export function UpgradeReveal({ chapter, lessons, chapters, onHome }) {
+export function UpgradeReveal({ lessons, chapters, onHome }) {
+  const [after, setAfter] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setAfter(true), 1100); return () => clearTimeout(t) }, [])
   const up = chapterUpgrade(chapters)
   return (
     <>
       <div className="top"><div className="logo">כספי<b>.</b></div></div>
-      <div className="ldscene"><Scene lessons={lessons} chapters={chapters} mood="party" /></div>
-      <div className="upg fade-in">
-        <small>הפרק "{chapter.title}" הושלם!</small>
-        <h1>{up ? up.name : 'עוד פרק בכיס'}</h1>
-        <p>{up ? up.text : 'כבר יש לו הכול. הוא פשוט שמח.'}</p>
+      <div className={`ldscene morphscene ${after ? 'after' : ''}`}>
+        <Scene lessons={lessons} chapters={after ? chapters : chapters - 1} mood={after ? 'party' : ''} />
       </div>
+      <h1 className={`prize big ${after ? 'show' : ''}`}>{after ? (up ? up.name : 'פרק הושלם!') : '\u00a0'}</h1>
       <div className="spacer" />
       <div className="foot"><button className="cta" onClick={onHome}>חזרה למסלול</button></div>
     </>

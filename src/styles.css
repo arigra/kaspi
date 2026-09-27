@@ -466,3 +466,10 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .rv-card{background:var(--card); border:2px solid var(--line); border-radius:22px; padding:24px 18px; min-height:200px; display:flex; flex-direction:column; justify-content:center; gap:14px; text-align:center}
 .rv-card p{margin:0; font-size:19px; font-weight:800; line-height:1.5}
 .rv-card .rv-back{font-weight:600; font-size:17px; color:var(--good); border-top:2px dashed var(--line); padding-top:14px}
+.celebrate.reward{justify-content:center; gap:16px}
+.celebrate.reward .bust{width:250px; height:374px; align-self:center}
+.prize{margin:0; text-align:center; font-size:34px; font-weight:900; color:var(--cta-deep,#a86b1c); opacity:0; transform:scale(.6)}
+.prize.show{animation:pop .55s cubic-bezier(.3,1.7,.5,1) both}
+.prize.big{font-size:38px; margin-top:18px}
+.morphscene .scene{transition:filter .3s}
+.morphscene.after .scene{animation:grow .6s cubic-bezier(.3,1.6,.5,1)}
