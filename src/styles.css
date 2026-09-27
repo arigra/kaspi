@@ -10,12 +10,14 @@
     --bg:#161c19; --card:#212a25; --soft:#2a342e; --ink:#eef0e8; --muted:#a6ada4; --line:rgba(255,255,255,.12);
     --good:#8fd1a6; --good-bg:#223529; --think:#e3cf9c; --think-bg:#352f22;
     --sea1:#1f3c42; --sea2:#10252a; --sand:#4a4130; --rock:#35494c;
+    --story1:#2a3530; --story2:#232c28; --story-sh:#141a17; --ok-bg:#1f3327; --bad-bg:#3a2724; --bad-line:#6b443b; --say-bg:#2a342e; --new-bg:#3a3020; --new-ink:#f2d27e;
   }
 }
 :root[data-theme="dark"]{
   --bg:#161c19; --card:#212a25; --soft:#2a342e; --ink:#eef0e8; --muted:#a6ada4; --line:rgba(255,255,255,.12);
   --good:#8fd1a6; --good-bg:#223529; --think:#e3cf9c; --think-bg:#352f22;
   --sea1:#1f3c42; --sea2:#10252a; --sand:#4a4130; --rock:#35494c;
+  --story1:#2a3530; --story2:#232c28; --story-sh:#141a17; --ok-bg:#1f3327; --bad-bg:#3a2724; --bad-line:#6b443b; --say-bg:#2a342e; --new-bg:#3a3020; --new-ink:#f2d27e;
 }
 *{box-sizing:border-box}
 html{height:100%; scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -320,7 +322,7 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 /* hero on the path (close-up) */
 .pathhero{position:absolute; width:124px; height:164px; inset-inline-end:0; top:-6px; border:0; background:none; padding:0; z-index:2}
 .herotag{position:absolute; bottom:-6px; inset-inline-end:22px; background:var(--card); border:2px solid var(--line); border-radius:999px; font-size:11.5px; font-weight:800; padding:2px 9px; color:var(--muted); white-space:nowrap}
-.newtag{display:inline-block; margin:2px auto 0; background:#fff5dc; color:#9a6a12; border:2px solid #f2c14e; border-radius:999px; font-weight:900; font-size:15px; padding:6px 14px; animation:pop .5s cubic-bezier(.3,1.6,.5,1) .5s both}
+.newtag{display:inline-block; margin:2px auto 0; background:var(--new-bg,#fff5dc); color:var(--new-ink,#9a6a12); border:2px solid #f2c14e; border-radius:999px; font-weight:900; font-size:15px; padding:6px 14px; animation:pop .5s cubic-bezier(.3,1.6,.5,1) .5s both}
 @keyframes pop{from{transform:scale(.4); opacity:0}to{transform:none; opacity:1}}
 .bust{width:190px; height:250px; margin:0 auto; position:relative}
 .bust .glow{position:absolute; inset:30px 10px 10px; border-radius:50%; background:radial-gradient(circle,rgba(242,193,78,.35),transparent 65%)}
@@ -365,15 +367,15 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 /* ---------- fun lesson screens ---------- */
 .hscene{display:flex; flex-direction:column; align-items:center; gap:10px; padding-top:4px; text-align:center}
 .hs-hero{width:170px; height:224px}
-.hs-say{position:relative; background:#fff; border:2px solid var(--ink); border-radius:18px; padding:8px 14px; font-weight:800; font-size:17px; margin-top:-8px}
-.hs-say:before{content:''; position:absolute; top:-9px; left:50%; width:14px; height:14px; background:#fff; border-top:2px solid var(--ink); border-inline-start:2px solid var(--ink); transform:translateX(-50%) rotate(45deg)}
+.hs-say{position:relative; background:var(--say-bg,#fff); border:2px solid var(--ink); border-radius:18px; padding:8px 14px; font-weight:800; font-size:17px; margin-top:-8px}
+.hs-say:before{content:''; position:absolute; top:-9px; left:50%; width:14px; height:14px; background:var(--say-bg,#fff); border-top:2px solid var(--ink); border-inline-start:2px solid var(--ink); transform:translateX(-50%) rotate(45deg)}
 .hs-text{margin:0; font-size:18px; line-height:1.6; font-weight:600; max-width:330px}
 .ch-top{display:flex; align-items:center; gap:10px}
 .ch-hero{flex:none; width:92px; height:122px}
 .ch-top h2.q{margin:0}
 .outcome{background:var(--card); border:2px solid var(--line); border-radius:20px; padding:16px; margin-top:12px}
-.outcome.good{border-color:var(--good); background:#eef7f0}
-.outcome.bad{border-color:#e5b8a8; background:#fbf0ec}
+.outcome.good{border-color:var(--good); background:var(--ok-bg,#eef7f0)}
+.outcome.bad{border-color:var(--bad-line,#e5b8a8); background:var(--bad-bg,#fbf0ec)}
 .oc-pick{font-weight:800; color:var(--muted); font-size:14.5px; margin-bottom:8px}
 .oc-out{font-size:17px; line-height:1.6; font-weight:600}
 .outcome .linkbtn{margin-top:10px}
@@ -381,7 +383,7 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .sc-dots{display:flex; gap:5px}
 .sc-dots i{flex:1; height:4px; border-radius:2px; background:var(--line)}
 .sc-dots i.on{background:var(--cta)}
-.scard{min-height:300px; width:100%; border:0; border-radius:24px; padding:26px 22px; background:linear-gradient(160deg,#fffdf6,#f3ecd8); box-shadow:0 5px 0 #e5dcc2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; color:var(--ink); font:inherit}
+.scard{min-height:300px; width:100%; border:0; border-radius:24px; padding:26px 22px; background:linear-gradient(160deg,var(--story1,#fffdf6),var(--story2,#f3ecd8)); box-shadow:0 5px 0 var(--story-sh,#e5dcc2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; color:var(--ink); font:inherit}
 .sc-emoji{font-size:54px; line-height:1}
 .scard h3{margin:0; font-size:22px; font-weight:900}
 .scard p{margin:0; font-size:19px; line-height:1.6; font-weight:600}
