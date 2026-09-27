@@ -1,22 +1,112 @@
-// What the hero gains with each finished chapter (index = chapters done).
-export const UPGRADES = [
-  null,
-  { name: 'כיסים במקום', text: 'הכיסים חזרו פנימה. עדיין ריקים, אבל כבר לא מתביישים.' },
-  { name: 'נעליים תואמות', text: 'שתי נעליים מאותו זוג. התחלה של סדר.' },
-  { name: 'חולצה שלמה', text: 'בלי חורים, בלי פלסטר. מישהו התחיל לשים לב לפרטים.' },
-  { name: 'שיניים שהשלימו', text: 'השיניים החסרות חזרו. עוד עקומות, אבל הכול במקום.' },
-  { name: 'ארנק עם משהו בפנים', text: 'שלום רב־קו, שלום ארנק. ויש בו אפילו שטר.' },
-  { name: 'ג׳ינס', text: 'מכנסיים במידה. חגורה אמיתית במקום חבל.' },
-  { name: 'בלי כובע גרב', text: 'הסנפיר בחוץ, בגאווה.' },
-  { name: 'חיוך מושלם', text: 'שיניים ישרות ולבנות. עכשיו אפשר לחייך בתמונות.' },
-  { name: 'חולצה מכופתרת', text: 'נראה כמו מישהו שיודע מה יש לו בפנסיה.' },
-  { name: 'שעון זהב', text: 'עכשיו גם יודעים מה השעה, וגם מה טווח ההשקעה.' },
-  { name: 'משקפי שמש', text: 'העתיד נראה כל כך מבריק.' },
-  { name: 'אוטו ספורט', text: 'אדום, נמוך, ושולם במזומן. כמובן.' },
-  { name: 'בת זוג', text: 'היא שמה לב לתיק המפוזר שלו.' },
-  { name: 'חליפה', text: 'חליפה, עניבה ונעלי עור. מוכן לפגישה עם הבנק — ולא מפחד.' },
-  { name: 'שרשרת זהב', text: 'רק קצת. לא מגזימים.' },
-  { name: 'בית', text: 'מאוהל לבית עם גינה. המסע הושלם.' }
+// The hero's rise. Every finished lesson changes one small thing on him;
+// every finished chapter adds something big to his world.
+
+const BASE = {
+  shirt: 'none', hat: 'beanie', missing: ['t3', 't8', 'b5'], crook: 1, white: false, gold: 0, grill: false,
+  pants: 'rag', pocketsOut: true, patch: true, shoes: 'flipMismatch', right: 'ravkav', smoke: false,
+  left: 'none', neck: 'none', neck2: false, watch: 'none', watch2: false, bracelet: false, earring: 'none',
+  rings: 0, eyes: 'none', brow: 'sad', bandage: true, tie: false, cufflinks: false, fur: false, feather: false
+}
+
+// index i = what the (i+1)-th finished lesson brings
+export const LESSON_UPGRADES = [
+  ['כיסים במקום', { pocketsOut: false }],
+  ['כפכפים מאותו זוג', { shoes: 'flip' }],
+  ['בלי פלסטר', { bandage: false }],
+  ['גופייה! קרועה, אבל גופייה', { shirt: 'tank' }],
+  ['טלפון מקופל', { right: 'flip' }],
+  ['שן אחת חזרה', { missing: ['t8', 'b5'] }],
+  ['מכנסיים בלי טלאי', { patch: false }],
+  ['עוד שן', { missing: ['t8'] }],
+  ['פחות לחוץ', { brow: 'neutral' }],
+  ['שעון פלסטיק', { watch: 'plastic' }],
+  ['סניקרס', { shoes: 'sneaker' }],
+  ['חולצה שלמה', { shirt: 'tee' }],
+  ['כובע מצחייה הפוך', { hat: 'cap' }],
+  ['שיניים קצת פחות עקומות', { crook: 0.6 }],
+  ['סמארטפון', { right: 'phone' }],
+  ['כל השיניים במקום', { missing: [] }],
+  ['ג׳ינס', { pants: 'jeans' }],
+  ['עגיל', { earring: 'stud' }],
+  ['צמיד', { bracelet: true }],
+  ['שיניים כמעט ישרות', { crook: 0.3 }],
+  ['שרשרת כסף', { neck: 'silver' }],
+  ['משקפי שמש מהשוק', { eyes: 'cheap' }],
+  ['בלי כובע, הסנפיר בחוץ', { hat: 'none' }],
+  ['חולצת הוואי', { shirt: 'hawaii' }],
+  ['חיוך מושלם', { crook: 0, white: true }],
+  ['סניקרס זהב', { shoes: 'goldSneaker' }],
+  ['טבעת', { rings: 1 }],
+  ['ביטחון עצמי', { brow: 'confident' }],
+  ['ארנק עם מזומן', { right: 'wallet' }],
+  ['שרשרת זהב', { neck: 'goldThin' }],
+  ['שעון זהב', { watch: 'gold' }],
+  ['משקפי טייסים', { eyes: 'aviator' }],
+  ['חולצה מכופתרת', { shirt: 'button' }],
+  ['עוד טבעת', { rings: 2 }],
+  ['שן זהב', { gold: 1 }],
+  ['קפה ב־28 שקל', { left: 'coffee' }],
+  ['מכנסי פשתן', { pants: 'linen' }],
+  ['מוקסינים', { shoes: 'loafer' }],
+  ['שרשרת עבה', { neck: 'goldThick' }],
+  ['חולצת משי פתוחה', { shirt: 'silk' }],
+  ['טבעת שלישית', { rings: 3 }],
+  ['עגיל יהלום', { earring: 'diamond' }],
+  ['בלייזר', { shirt: 'blazer' }],
+  ['סיגר', { right: 'cigar' }],
+  ['מבט של מיליונר', { brow: 'smug' }],
+  ['פדורה', { hat: 'fedora' }],
+  ['וויסקי', { left: 'whiskey' }],
+  ['עוד שן זהב', { gold: 2 }],
+  ['מכנסי חליפה', { pants: 'suit' }],
+  ['נעלי עור', { shoes: 'dress' }],
+  ['עניבה', { tie: true }],
+  ['שעון יהלומים', { watch: 'diamond' }],
+  ['מדליון ענק', { neck: 'medallion' }],
+  ['חליפה לבנה', { shirt: 'suitWhite' }],
+  ['הסיגר דולק', { smoke: true }],
+  ['טבעת רביעית', { rings: 4 }],
+  ['משקפי זהב', { eyes: 'goldShades' }],
+  ['חפתים', { cufflinks: true }],
+  ['וויסקי עם קרח', { left: 'whiskeyIce' }],
+  ['ארבע שיני זהב', { gold: 4 }],
+  ['מעיל פרווה על הכתפיים', { fur: true }],
+  ['סיגר ענק', { right: 'cigarBig' }],
+  ['טבעת בכל אצבע', { rings: 5 }],
+  ['גריל זהב', { grill: true }],
+  ['נוצה בפדורה', { feather: true }],
+  ['שני שעונים. למה לא', { watch2: true }],
+  ['עוד שרשרת', { neck2: true }],
+  ['כתר', { hat: 'crown' }]
 ]
-export const heroLevel = (state) => Math.min(Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length, UPGRADES.length - 1)
+
+// index i = what the (i+1)-th finished chapter brings
+export const CHAPTER_UPGRADES = [
+  { name: 'אופניים', text: 'יד שנייה, בלי בלמים. אבל שלו.' },
+  { name: 'חדר שכור', text: 'שלום ספסל, שלום חדר עם חלון.' },
+  { name: 'קטנוע', text: 'עכשיו מגיעים לעבודה בזמן.' },
+  { name: 'אוטו ראשון', text: 'בן 19, דלת אחת בצבע אחר. מושלם.' },
+  { name: 'דירה', text: 'שלושה חדרים ומרפסת שמש.' },
+  { name: 'חברה', text: 'היא ראתה את טבלת ההוצאות שלו ונדלקה.' },
+  { name: 'קבריולט', text: 'גג נפתח. השיער — כלומר הסנפיר — ברוח.' },
+  { name: 'בית עם גינה', text: 'דשא, עץ, ומקום לגריל.' },
+  { name: 'בריכה', text: 'כי כריש צריך מים.' },
+  { name: 'אוטו ספורט', text: 'אדום, נמוך, ושולם במזומן. כמובן.' },
+  { name: 'עוד חברה', text: 'גם היא אוהבת תיקים מפוזרים.' },
+  { name: 'וילה', text: 'עמודים לבנים. הרבה עמודים לבנים.' },
+  { name: 'למבורגיני', text: 'צהובה. כמובן שצהובה.' },
+  { name: 'יאכטה', text: 'עוגנת ברקע. הוא אפילו לא יודע לשוט.' },
+  { name: 'אחוזה', text: 'שער, מזרקה, ומישהו שפותח את השער.' },
+  { name: 'מטוס פרטי', text: 'המסע הושלם. לאן טסים?' }
+]
+
 export const coinsOf = (state) => Object.values(state.done || {}).reduce((a, d) => a + d.length, 0)
+export const chaptersOf = (state) => Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length
+
+export function heroLook(lessons) {
+  const look = { ...BASE }
+  LESSON_UPGRADES.slice(0, lessons).forEach(([, patch]) => Object.assign(look, patch))
+  return look
+}
+export const lessonUpgrade = (lessons) => LESSON_UPGRADES[lessons - 1]?.[0]
+export const chapterUpgrade = (chapters) => CHAPTER_UPGRADES[chapters - 1]

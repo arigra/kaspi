@@ -1,6 +1,5 @@
-import Shark from '../components/Shark.jsx'
-import Scene from '../components/Scene.jsx'
-import { heroLevel, coinsOf } from '../content/upgrades.js'
+import Hero from '../components/Hero.jsx'
+import { heroLook, coinsOf } from '../content/upgrades.js'
 import Header from './Header.jsx'
 import { STAGES } from '../content/index.js'
 import { iconFor } from '../content/icons.js'
@@ -8,6 +7,13 @@ import { iconFor } from '../content/icons.js'
 export default function Home({ state, stageIndex, currentChapterId, chapterStatus, actions }) {
   const stage = STAGES[stageIndex]
   let activeShown = false
+  const heroOnPath = stage.chapters.some((c) => c.id === currentChapterId)
+  const heroBtn = (
+    <button className="pathhero" aria-label="העולם של הכריש" onClick={actions.openWorld}>
+      <Hero look={heroLook(coinsOf(state))} view="bust" />
+      <span className="herotag">🪙 {coinsOf(state)}</span>
+    </button>
+  )
 
   return (
     <>
@@ -17,6 +23,7 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
         <button className="linkbtn" onClick={actions.goChapters}>כל הפרקים</button>
       </div>
 
+      {!heroOnPath && <div className="herohead">{heroBtn}</div>}
       {stage.chapters.map((c) => {
         const status = chapterStatus(c)
         if (status === 'writing') {
@@ -34,7 +41,7 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
               {status === 'open' && <button className="skip" onClick={() => actions.skipChapter(c.id)}>לדלג</button>}
             </div>
             <div className="nodes">
-              {currentChapterId === c.id && <div className="pathshark"><Shark bubbles /></div>}
+              {currentChapterId === c.id && heroBtn}
               {c.lessons.map((l, i) => {
                 const isDone = done.includes(i)
                 const isNext = !activeShown && currentChapterId === c.id && !isDone
@@ -60,8 +67,7 @@ export default function Home({ state, stageIndex, currentChapterId, chapterStatu
         )
       })}
 
-      <div className="homepad" />
-      <div className="homescene"><Scene level={heroLevel(state)} coins={coinsOf(state)} /></div>
+      <div style={{ height: 40 }} />
     </>
   )
 }

@@ -1,11 +1,13 @@
 import Scene from '../components/Scene.jsx'
-import { UPGRADES } from '../content/upgrades.js'
+import Hero from '../components/Hero.jsx'
+import { heroLook, lessonUpgrade, chapterUpgrade } from '../content/upgrades.js'
 
-export function LessonDone({ level, coins, title, minutes, cards, offerChallenge, onChallenge, onHome }) {
+export function LessonDone({ lessons, title, minutes, cards, offerChallenge, onChallenge, onHome }) {
   return (
     <>
       <div className="celebrate fade-in">
-        <div className="ldscene"><Scene compact level={level} coins={coins} mood="happy" newCoin /></div>
+        <div className="bust"><div className="glow" /><Hero look={heroLook(lessons)} view="bust" mood="happy" /></div>
+        {lessonUpgrade(lessons) && <div className="newtag">חדש: {lessonUpgrade(lessons)}</div>}
         <h1>שיעור הושלם!</h1>
         <p>{title}</p>
         <div className="stats">
@@ -26,16 +28,16 @@ export function LessonDone({ level, coins, title, minutes, cards, offerChallenge
   )
 }
 
-export function UpgradeReveal({ chapter, level, coins, onHome }) {
-  const up = UPGRADES[level]
+export function UpgradeReveal({ chapter, lessons, chapters, onHome }) {
+  const up = chapterUpgrade(chapters)
   return (
     <>
       <div className="top"><div className="logo">כספי<b>.</b></div></div>
-      <div className="ldscene"><Scene level={level} coins={coins} mood="party" /></div>
+      <div className="ldscene"><Scene lessons={lessons} chapters={chapters} mood="party" /></div>
       <div className="upg fade-in">
-        <small>הפרק "{chapter.title}" הושלם · שדרוג חדש!</small>
-        <h1>{up ? up.name : 'עוד מטבע לצנצנת'}</h1>
-        <p>{up ? up.text : 'כבר השגתם את כל השדרוגים. הכריש פשוט שמח.'}</p>
+        <small>הפרק "{chapter.title}" הושלם!</small>
+        <h1>{up ? up.name : 'עוד פרק בכיס'}</h1>
+        <p>{up ? up.text : 'כבר יש לו הכול. הוא פשוט שמח.'}</p>
       </div>
       <div className="spacer" />
       <div className="foot"><button className="cta" onClick={onHome}>חזרה למסלול</button></div>

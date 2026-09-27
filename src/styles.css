@@ -289,28 +289,44 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .isle-done{position:absolute; top:-6px; left:-4px; width:24px; height:24px; border-radius:50%; background:var(--good); color:#fff; font-size:14px; font-weight:900; display:grid; place-items:center; box-shadow:0 2px 0 rgba(0,0,0,.15)}
 .reefbg .coral{position:absolute; line-height:1; pointer-events:none; animation:sway 4s ease-in-out infinite alternate}
 @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-/* ---------- hero scene ---------- */
-.scene{position:relative; height:230px; overflow:hidden; background:linear-gradient(180deg,#dff0ec 0%,#cfe8e6 60%,#e9f2ea 100%)}
-.scene.compact{height:210px}
-.homescene{pointer-events:none; position:fixed; left:0; right:0; bottom:0; margin:0 auto; max-width:480px; z-index:5; border-top:2px solid var(--line); box-shadow:0 -8px 20px rgba(0,0,0,.05)}
-.homepad{height:240px}
+/* ---------- hero world ---------- */
+.scene{position:relative; height:330px; overflow:hidden; border-radius:24px; background:linear-gradient(180deg,#dff0ec 0%,#cfe8e6 62%,#e9f2ea 100%)}
 .sc-sun{position:absolute; top:16px; left:22px; width:38px; height:38px; border-radius:50%; background:#ffe29a; box-shadow:0 0 0 10px rgba(255,226,154,.35)}
-.sc-ground{position:absolute; left:0; right:0; bottom:0; height:44px; background:#e8d9ae; border-radius:50% 50% 0 0 / 30% 30% 0 0}
-.sc-house{position:absolute; bottom:30px; right:8px; width:120px; height:92px}
-.sc-car{position:absolute; bottom:24px; left:-44px; width:150px; height:64px; animation:carbob 3s ease-in-out infinite}
-.sc-jar{position:absolute; bottom:24px; left:50%; margin-left:-118px; width:40px; height:54px}
-.sc-hero{position:absolute; bottom:6px; left:50%; width:150px; height:210px; margin-left:-75px}
-.sc-gf{position:absolute; bottom:12px; left:50%; margin-left:48px; width:100px; height:160px; animation:gfsway 3.4s ease-in-out infinite}
-.sc-coin{position:absolute; left:10px; top:-60px; font-size:20px; animation:coindrop 1s cubic-bezier(.5,0,.8,.4) .5s both; z-index:2}
-.sc-spark{position:absolute; color:#e2b53c; font-size:22px; animation:spark 1.4s ease-out infinite}
+.sc-jet{position:absolute; top:22px; right:-20px; width:120px; height:46px; animation:fly 9s linear infinite}
+@keyframes fly{from{transform:translateX(0)}to{transform:translateX(-520px)}}
+.sc-sea{position:absolute; left:0; right:0; bottom:60px; height:40px; background:linear-gradient(180deg,#8ccfdf,#6fbfd3)}
+.sc-yacht{position:absolute; left:10px; bottom:14px; width:110px; height:48px; animation:carbob 3.6s ease-in-out infinite}
+.sc-home{position:absolute; bottom:44px; right:6px; width:170px; height:128px}
+.sc-home.bench{width:120px; height:90px; right:10px}
+.sc-home.mansion,.sc-home.villa{width:230px; height:170px; right:-20px}
+.sc-ground{position:absolute; left:0; right:0; bottom:0; height:64px; background:#e8d9ae; border-radius:50% 50% 0 0 / 26% 26% 0 0}
+.sc-pool{position:absolute; bottom:14px; right:14px; width:150px; height:32px}
+.sc-car{position:absolute; bottom:22px; left:-30px; width:170px; height:72px; animation:carbob 3s ease-in-out infinite}
+.sc-car.bike,.sc-car.scooter{width:120px; height:52px; left:-6px}
+.sc-jar{position:absolute; bottom:30px; left:50%; margin-left:-128px; width:40px; height:54px; z-index:2}
+.sc-hero{position:absolute; bottom:4px; left:50%; width:176px; height:264px; margin-left:-100px; z-index:3}
+.sc-gf{position:absolute; bottom:8px; left:50%; margin-left:52px; width:110px; height:182px; z-index:2; animation:gfsway 3.4s ease-in-out infinite}
+.sc-gf2{position:absolute; bottom:12px; left:50%; margin-left:-170px; width:100px; height:166px; z-index:2; animation:gfsway 3s ease-in-out infinite reverse}
+.gf.flip{transform:scaleX(-1)}
+.sc-spark{position:absolute; color:#e2b53c; font-size:24px; animation:spark 1.4s ease-out infinite; z-index:4}
 @keyframes carbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes gfsway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-@keyframes coindrop{0%{opacity:0; transform:translateY(-20px)}20%{opacity:1}100%{opacity:1; transform:translateY(64px)}}
-.gf .gf-wave{transform-origin:128px 156px; animation:wave 1.6s ease-in-out infinite}
+.gf .gf-wave{transform-origin:124px 154px; animation:wave 1.6s ease-in-out infinite}
 .gf .gf-heart{animation:float 2s ease-in-out infinite}
 .gf .gf-eyes{transform-origin:100px 84px; animation:blink 5s infinite 1.3s}
-.car .wheel{transform-box:fill-box; transform-origin:center}
+.hero .h-smoke{animation:smoke 2.4s ease-out infinite}
+@keyframes smoke{0%{opacity:0; transform:translateY(8px)}30%{opacity:.8}100%{opacity:0; transform:translateY(-16px)}}
 
+/* hero on the path (close-up) */
+.pathhero{position:absolute; width:124px; height:164px; inset-inline-end:0; top:-6px; border:0; background:none; padding:0; z-index:2}
+.herotag{position:absolute; bottom:-6px; inset-inline-end:22px; background:var(--card); border:2px solid var(--line); border-radius:999px; font-size:11.5px; font-weight:800; padding:2px 9px; color:var(--muted); white-space:nowrap}
+.newtag{display:inline-block; margin:2px auto 0; background:#fff5dc; color:#9a6a12; border:2px solid #f2c14e; border-radius:999px; font-weight:900; font-size:15px; padding:6px 14px; animation:pop .5s cubic-bezier(.3,1.6,.5,1) .5s both}
+@keyframes pop{from{transform:scale(.4); opacity:0}to{transform:none; opacity:1}}
+.bust{width:190px; height:250px; margin:0 auto; position:relative}
+.bust .glow{position:absolute; inset:30px 10px 10px; border-radius:50%; background:radial-gradient(circle,rgba(242,193,78,.35),transparent 65%)}
+.worldsheet{padding-top:10px}
+.worldsheet .scene{margin:0 0 12px}
+.worldsheet .meta{display:flex; gap:10px; justify-content:center; margin-bottom:12px}
 /* hero idle life */
 .hero .h-all{transform-origin:150px 400px; animation:breathe 3.2s ease-in-out infinite}
 .hero .h-head{transform-origin:150px 190px; animation:headbob 4.4s ease-in-out infinite}
@@ -325,14 +341,14 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 @keyframes armswing{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
 @keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-18deg)}}
 /* happy: hop + arms up */
-.scene.happy .hero .h-all, .hero.happy .h-all{animation:hop .7s cubic-bezier(.3,1.6,.5,1) 3}
-.scene.happy .hero .h-armR, .hero.happy .h-armR{animation:cheerR .7s ease-in-out 3}
-.scene.happy .hero .h-armL, .hero.happy .h-armL{animation:cheerL .7s ease-in-out 3}
+.hero.happy .h-all{animation:hop .7s cubic-bezier(.3,1.6,.5,1) 3}
+.hero.happy .h-armR{animation:cheerR .7s ease-in-out 3}
+.hero.happy .h-armL{animation:cheerL .7s ease-in-out 3}
 /* party: big jumps with a spin, forever */
 .scene.party .hero .h-all{animation:bigjump 1.4s cubic-bezier(.3,1.4,.5,1) infinite}
 .scene.party .hero .h-armR{animation:cheerR .7s ease-in-out infinite}
 .scene.party .hero .h-armL{animation:cheerL .7s ease-in-out infinite}
-.scene.party .sc-gf{animation:hop .9s ease-in-out infinite .2s}
+.scene.party .sc-gf,.scene.party .sc-gf2{animation:hop .9s ease-in-out infinite .2s}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-26px)}}
 @keyframes bigjump{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-60px) rotate(-8deg)}60%{transform:translateY(-40px) rotate(8deg)}}
 @keyframes cheerR{0%,100%{transform:rotate(0)}50%{transform:rotate(-70deg)}}
@@ -343,5 +359,6 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .upg small{color:var(--cta); font-weight:900; font-size:13px}
 .upg h1{margin:4px 0 6px; font-size:28px; font-weight:900}
 .upg p{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6}
-.ldscene{align-self:stretch; margin:4px 18px 0; border-radius:24px; overflow:hidden; border:2px solid var(--line)}
+.ldscene{align-self:stretch; margin:4px 18px 0}
 .celebrate .stats{align-self:center} .celebrate h1,.celebrate p{align-self:center}
+.herohead{position:relative; height:170px} .herohead .pathhero{inset-inline-end:auto; left:50%; margin-left:-62px; top:0}

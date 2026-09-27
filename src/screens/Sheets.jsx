@@ -1,3 +1,4 @@
+import Scene from '../components/Scene.jsx'
 import ReefItem from '../components/ReefItem.jsx'
 import { CHAPTERS } from '../content/index.js'
 
@@ -28,6 +29,23 @@ export function SettingsSheet({ muted, onToggleMute, onReset, onClose }) {
         <div className="setrow"><span>צליל</span><button className={`toggle ${muted ? '' : 'on'}`} onClick={onToggleMute} aria-label="צליל" aria-pressed={!muted} /></div>
         <div className="setrow"><span>איפוס ההתקדמות</span><button className="iconbtn" onClick={onReset}>איפוס</button></div>
         <p className="disclaimer" style={{ textAlign: 'start' }}>כספי מסביר איך דברים עובדים ולא ממליץ על מוצר, קרן, מסלול או עסקה. להחלטות כאלה כדאי לפנות לבעל רישיון.</p>
+        <button className="cta ghost" onClick={onClose}>סגירה</button>
+      </div>
+    </>
+  )
+}
+
+export function WorldSheet({ lessons, chapters, onClose }) {
+  return (
+    <>
+      <div className="scrim" onClick={onClose} />
+      <div className="sheet worldsheet" role="dialog" aria-label="העולם של הכריש">
+        <div className="grab" />
+        <Scene lessons={lessons} chapters={chapters} />
+        <div className="meta">
+          <div className="stat"><b className="ltr">{lessons}</b><span>שיעורים · שדרוג קטן בכל אחד</span></div>
+          <div className="stat"><b className="ltr">{chapters}</b><span>פרקים · שדרוג גדול</span></div>
+        </div>
         <button className="cta ghost" onClick={onClose}>סגירה</button>
       </div>
     </>

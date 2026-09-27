@@ -8,8 +8,8 @@ import Lesson from './screens/Lesson.jsx'
 import { LessonDone, UpgradeReveal } from './screens/Done.jsx'
 import Chapters from './screens/Chapters.jsx'
 import Cards from './screens/Cards.jsx'
-import { ItemSheet, SettingsSheet } from './screens/Sheets.jsx'
-import { heroLevel, coinsOf } from './content/upgrades.js'
+import { ItemSheet, SettingsSheet, WorldSheet } from './screens/Sheets.jsx'
+import { coinsOf, chaptersOf } from './content/upgrades.js'
 
 export default function App() {
   const [state, setState] = usePersistentState()
@@ -39,6 +39,7 @@ export default function App() {
     goChapters: () => go('chapters'),
     openSettings: () => setSheet({ type: 'settings' }),
     openItem: (key) => { setSheet({ type: 'item', key }); sfx.tap() },
+    openWorld: () => { setSheet({ type: 'world' }); sfx.tap() },
     skipChapter: (id) => { update((s) => ({ skipped: { ...s.skipped, [id]: true } })); sfx.tap(); flash('דילגתם — אפשר לחזור בכל רגע') },
     openChapter: (id) => {
       if (chapterById(id).writing) { flash('הפרק הזה עוד נכתב'); return }
@@ -89,12 +90,12 @@ export default function App() {
     const c = chapterById(play.chapterId), L = c.lessons[play.lesson]
     const allDone = (state.done[c.id] || []).length === c.lessons.length
     screen = (
-      <LessonDone level={heroLevel(state)} coins={coinsOf(state)} title={L.title} minutes={L.minutes} cards={state.cards.length}
+      <LessonDone lessons={coinsOf(state)} title={L.title} minutes={L.minutes} cards={state.cards.length}
         offerChallenge={allDone && !state.chapterDone[c.id]}
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
-    screen = <UpgradeReveal chapter={chapterById(play.chapterId)} level={heroLevel(state)} coins={coinsOf(state)} onHome={() => go('home')} />
+    screen = <UpgradeReveal chapter={chapterById(play.chapterId)} lessons={coinsOf(state)} chapters={chaptersOf(state)} onHome={() => go('home')} />
   } else if (view === 'chapters') {
     screen = <Chapters state={state} chapterStatus={chapterStatus} actions={actions} />
   } else if (view === 'cards') {
@@ -109,6 +110,7 @@ export default function App() {
       {sheet?.type === 'item' && (
         <ItemSheet itemKey={sheet.key} onClose={() => setSheet(null)} onRevisit={(id) => actions.openChapter(id)} />
       )}
+      {sheet?.type === 'world' && <WorldSheet lessons={coinsOf(state)} chapters={chaptersOf(state)} onClose={() => setSheet(null)} />}
       {sheet?.type === 'settings' && (
         <SettingsSheet muted={state.muted} onToggleMute={() => update((s) => ({ muted: !s.muted }))} onClose={() => setSheet(null)}
           onReset={() => { if (window.confirm('למחוק את כל ההתקדמות ולהתחיל מחדש?')) { setState(initialState()); setSheet(null); setView('onboarding') } }} />
