@@ -11,5 +11,13 @@ export const IL = {
   pensionAvgBalanceFee: 0.0016,
   pensionDefaultDepositFee: 0.01, // default funds, 2024-2028 tender
   pensionDefaultBalanceFee: 0.0022,
+  // Typical household numbers used as starting values (CBS, June 2026 average wage 15,218 gross;
+  // ~11,300 net after pension; average rent ~4,900). Rounded so they read as "normal".
+  avgGross: 15200,
+  avgNet: 11300,
+  avgRent: 4900,
+  avgFixed: 5700,     // rent + phone, insurance, subscriptions
+  avgFlexible: 4200,
+  avgMortgage: 1100000,
   illustrationReturn: 0.06       // NOT a market figure: labelled as illustration in UI
 }

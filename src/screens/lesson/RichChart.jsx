@@ -5,7 +5,7 @@ import { IL } from '../../content/constants.js'
 
 // What "getting rich" means, in one picture: each month the same amount is
 // left over, so the pile in the side grows month by month.
-const W = 320, H = 190, PAD = 24, MONTHS = 12, INCOME = 9000, TOP = 1500 * MONTHS
+const W = 320, H = 190, PAD = 24, MONTHS = 12, INCOME = 11300, TOP = 2500 * MONTHS
 const bw = (W - PAD * 2) / MONTHS
 const MONTH_NAMES = ['ינו', 'פבר', 'מרץ', 'אפר', 'מאי', 'יונ', 'יול', 'אוג', 'ספט', 'אוק', 'נוב', 'דצמ']
 
@@ -41,7 +41,7 @@ function Invested({ v }) {
 }
 
 export default function RichChart({ screen, next }) {
-  const [v, setV] = useState(0)
+  const [v, setV] = useState(1000)
   const [touched, setTouched] = useState(false)
   const saved = v * MONTHS
   const h = (m) => ((v * (m + 1)) / TOP) * (H - PAD * 2)
@@ -67,7 +67,7 @@ export default function RichChart({ screen, next }) {
               {v === 0 && <text x={W / 2} y={H / 2} textAnchor="middle" fontSize="13" fill="#7a857d">אין כלום בצד. גם בדצמבר.</text>}
             </svg>
             <div className="lv-label">כמה כספי מוציא פחות בכל חודש: <b className="ltr">{nis(v)}</b></div>
-            <input type="range" min="0" max="1500" step="100" value={v} aria-label="כמה פחות בכל חודש"
+            <input type="range" min="0" max="2500" step="100" value={v} aria-label="כמה פחות בכל חודש"
               onChange={(e) => { setV(+e.target.value); setTouched(true) }} />
             <div className={`rich-cap ${v > 0 ? 'good' : ''}`}>
               {v === 0

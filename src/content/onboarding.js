@@ -4,4 +4,4 @@ export const ADVICE = [
 ]
 
 // Maya's figures, used by the "המספרים של מאיה" button in every tool.
-export const MAYA = { income: 9000, commitments: 4500, flexible: 3000 }
+export const MAYA = { income: 11300, commitments: 5700, flexible: 4200 }
