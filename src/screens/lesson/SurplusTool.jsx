@@ -21,7 +21,7 @@ export default function SurplusTool({ profile, setProfile, next }) {
       <div className="body">
         <div className="tool fade-in">
           <h2 className="q" style={{ marginBottom: 4 }}>כמה באמת נשאר לכם בסוף החודש?</h2>
-          <button className="mayabtn" onClick={() => { setProfile({ ...profile, ...MAYA }); sfx.tap() }}>המספרים של הכריש</button>
+          <button className="mayabtn" onClick={() => { setProfile({ ...profile, ...MAYA }); sfx.tap() }}>המספרים של כספי</button>
           {FIELDS.map(([k, label, hint]) => (
             <label className="field" key={k}>
               <b>{label}</b><span>{hint}</span>

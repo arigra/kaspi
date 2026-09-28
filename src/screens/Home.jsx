@@ -37,7 +37,7 @@ export default function Home({ state, stageIndex, setStage, next, focusChapter, 
 
       {next && (
         <div className="nextup fade-in">
-          <button className="nu-hero" aria-label="העולם של הכריש" onClick={actions.openWorld}>
+          <button className="nu-hero" aria-label="העולם של כספי" onClick={actions.openWorld}>
             <Hero look={look} view="bust" />
             <span className="herotag"><Icon name="coin" size={13} /> {coinsOf(state)}</span>
           </button>
@@ -88,7 +88,7 @@ export default function Home({ state, stageIndex, setStage, next, focusChapter, 
               <button className={`lrow chalrow ${state.chapterDone[c.id] ? 'done' : allDone ? 'ready' : ''}`} onClick={() => actions.startChallenge(c.id)}>
                 <Trail i={c.lessons.length} />
                 <span className={`node chal ${state.chapterDone[c.id] ? 'done' : allDone ? 'ready' : ''}`}><Icon name={state.chapterDone[c.id] ? 'check' : 'trophy'} size={26} /></span>
-                <span className="lr-text"><b>אתגר הפרק</b><small>{state.chapterDone[c.id] ? 'הושלם · השדרוג הגדול התקבל' : 'שדרוג גדול לעולם של הכריש'}</small></span>
+                <span className="lr-text"><b>אתגר הפרק</b><small>{state.chapterDone[c.id] ? 'הושלם · השדרוג הגדול התקבל' : 'שדרוג גדול לעולם של כספי'}</small></span>
               </button>
             </div>
           </div>

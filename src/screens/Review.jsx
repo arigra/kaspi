@@ -155,11 +155,11 @@ export default function Review() {
 
       {tab === 'cast' && (
         <section>
-          <h2>הכריש</h2>
+          <h2>כספי</h2>
           <div className="rv-grid">
             {[['רגיל', ''], ['שמח', 'happy'], ['נבהל', 'oops']].map(([t, m]) => (
               <div key={m} className="rv-cell"><div className="rv-fig"><Hero look={heroLook(0)} view="full" mood={m} /></div><b>{t}</b>
-                <Note id={`cast-hero-${m || 'idle'}`} label={`דמות: הכריש (${t})`} notes={notes} setNote={setNote} /></div>
+                <Note id={`cast-hero-${m || 'idle'}`} label={`דמות: כספי (${t})`} notes={notes} setNote={setNote} /></div>
             ))}
           </div>
           <h2>המדריכים</h2>

@@ -8,7 +8,7 @@ const round = (x) => Math.round(x / 100) * 100
 const GOLD = '#d9a32c', BLUE = '#5f86a3', RED = '#c9533f', GREEN = '#2f6e4b'
 
 export const LIVE = {
-  s3: { prompt: 'כמה זמן הכרית של הכריש קונה?', label: 'כמה יש בצד', min: 0, max: 60000, step: 1500, start: 15000,
+  s3: { prompt: 'כמה זמן הכרית של כספי קונה?', label: 'כמה יש בצד', min: 0, max: 60000, step: 1500, start: 15000,
     compute: (v) => { const m = v / 7500; return { big: `${m.toFixed(1).replace('.0', '')} חודשים`, fill: m / 6,
       caption: m < 3 ? 'פחות משלושה חודשים. הפתעה אחת גדולה והכרית נגמרת.' : m <= 6 ? 'בטווח המקובל של 3-6 חודשים.' : 'יותר מחצי שנה של שקט.' } },
     takeaway: 'כרית ביטחון נמדדת בזמן, לא בשקלים. זמן הוא מה שמונע מכירה בלחץ או הלוואה יקרה.' },
@@ -27,7 +27,7 @@ export const LIVE = {
       return { big: `${nis(Math.round(m))} בחודש`, parts: [['ההלוואה', 50000, BLUE], ['ריבית', interest, RED]],
         caption: `סך הריבית: ${nis(round(interest))}. תשלום חודשי נמוך הוא לא הלוואה זולה.` } },
     takeaway: 'פריסה ארוכה מקטינה את התשלום החודשי ומגדילה את סך הריבית.' },
-  n3: { prompt: 'אם הכריש לא יכול לעבוד - כמה חסר לו בכל חודש?', label: 'אחוז הכיסוי מהשכר', min: 0, max: 75, step: 5, start: 50, format: (x) => `${x}%`,
+  n3: { prompt: 'אם כספי לא יכול לעבוד - כמה חסר לו בכל חודש?', label: 'אחוז הכיסוי מהשכר', min: 0, max: 75, step: 5, start: 50, format: (x) => `${x}%`,
     compute: (c) => { const gap = Math.max(0, 9000 - 12000 * c / 100)
       return { big: gap ? `חסרים ${nis(gap)} בחודש` : 'אין פער', fill: gap / 9000,
         caption: `וזה אחרי 90 ימי המתנה שבהם לא משולם כלום - 27,000 ₪ שצריכים להגיע מהכרית. (אי אפשר לבטח מעל 75%.)` } },

@@ -39,7 +39,7 @@ export function WorldSheet({ lessons, chapters, onClose }) {
   return (
     <>
       <div className="scrim" onClick={onClose} />
-      <div className="sheet worldsheet" role="dialog" aria-label="העולם של הכריש">
+      <div className="sheet worldsheet" role="dialog" aria-label="העולם של כספי">
         <div className="grab" />
         <Scene lessons={lessons} chapters={chapters} />
         <div className="meta">

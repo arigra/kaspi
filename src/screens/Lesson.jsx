@@ -32,12 +32,12 @@ const HINTS = {
   explain: 'רעיון אחד, וממשיכים.',
   sort: 'הקישו על פריט, ואז על הקטגוריה שלו.',
   swipe: 'תחליקו ימינה לעובדה, שמאלה למיתוס - או לחצו.',
-  tool: 'עכשיו עם מספרים - שלכם, או של הכריש.',
+  tool: 'עכשיו עם מספרים - שלכם, או של כספי.',
   mission: 'משימה קטנה לעולם האמיתי. אין לחץ.',
   card: 'זה נכנס לאוסף שלכם.'
 }
 
-const GUIDE_NAMES = { kaspi: 'כספי', johnny: 'ג׳וני' }
+const GUIDE_NAMES = { kaspi: 'לולו', johnny: 'ג׳וני' }
 
 // Plays one lesson, or a chapter challenge (card === null).
 export default function Lesson({ look, screens, card, guide = 'kaspi', challenge = false, profile, setProfile, onClose, onFinish }) {

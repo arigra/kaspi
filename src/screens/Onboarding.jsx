@@ -52,7 +52,7 @@ export default function Onboarding({ onDone }) {
     body = (
       <div className="obtext fade-in">
         <div className="meet-hero"><Hero look={heroLook(0)} view="full" /></div>
-        <h1>תכירו את הכריש.</h1>
+        <h1>תכירו את כספי.</h1>
         <p>אין לו חולצה. הכיסים ריקים. בעשרים לחודש הוא כבר במינוס, והוא לא מבין למה.</p>
         <p><b>אתם הולכים לעזור לו להתעשר.</b> כל שיעור שתסיימו משדרג אותו, עד שהוא יגיע לאחוזה.</p>
       </div>
@@ -63,7 +63,7 @@ export default function Onboarding({ onDone }) {
       <div className="obtext fade-in">
         <h1>המדריכים שילוו אתכם</h1>
         <div className="duo">
-          <div className="who"><div className="who-fig"><Hero look={GUIDES.kaspi.look} palette="gold" view="bust" mood="happy" /></div><b>כספי</b><span>חם, יציב, מעשי.<br />מוביל את היסודות.</span></div>
+          <div className="who"><div className="who-fig"><Hero look={GUIDES.kaspi.look} palette="gold" view="bust" mood="happy" /></div><b>לולו</b><span>חם, יציב, מעשי.<br />מוביל את היסודות.</span></div>
           <div className="who"><div className="who-fig"><Hero look={GUIDES.johnny.look} palette="green" view="bust" /></div><b>ג׳וני</b><span>סקרן, אנליטי, סבלני.<br />מוביל את ההשקעות.</span></div>
         </div>
       </div>
