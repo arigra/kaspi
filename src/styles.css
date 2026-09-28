@@ -542,10 +542,13 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 body{transition:background .4s}
 .regionhead{position:relative; height:150px; margin:0 12px; border-radius:22px; overflow:hidden; box-shadow:0 4px 0 rgba(0,0,0,.06)}
 .regionhead .region-art{position:absolute; inset:0}
-.rh-over{position:absolute; inset:0; display:flex; align-items:flex-start; justify-content:space-between; padding:10px; background:linear-gradient(180deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,0) 60%)}
-.rh-over .sh-mid small{font-weight:800; color:#4a5a50}
-.rh-over .sh-mid h1{margin:0; font-size:28px; font-weight:900; line-height:1.1}
-.rh-over .sh-mid span{font-size:13px; font-weight:700; color:#4a5a50}
+.rh-over{position:absolute; inset:0; display:flex; align-items:flex-start; justify-content:space-between; padding:10px}
+.rh-over .sh-mid{flex:none; background:rgba(255,255,255,.94); border-radius:16px; padding:6px 16px 8px; box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.rh-over .sh-mid small{font-weight:800; color:#4a5a50; font-size:12px}
+.rh-over .sh-mid h1{margin:0; font-size:26px; font-weight:900; line-height:1.1; color:#1f2a24}
+.rh-over .sh-mid span{display:block; font-size:13px; font-weight:700; color:#4a5a50}
+.rh-over .stagenav{background:rgba(255,255,255,.94); box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.regionhead{height:170px}
 .gatewrap{display:flex; justify-content:center; margin-top:18px}
 .gate .gate-flag{transform-origin:60px 6px; animation:flagwave 1.6s ease-in-out infinite}
 @keyframes flagwave{0%,100%{transform:skewY(0)}50%{transform:skewY(-8deg)}}
