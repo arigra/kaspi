@@ -92,7 +92,7 @@ export const coinsOf = (state) => Object.values(state.done || {}).reduce((a, d) 
 export const chaptersOf = (state) => Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length
 
 // Upgrades are spread evenly over all lessons, so the last lesson brings the crown.
-export const TOTAL_LESSONS = 84
+export const TOTAL_LESSONS = 85
 export const upgradesAt = (lessons) => Math.min(LESSON_UPGRADES.length, Math.ceil(lessons * LESSON_UPGRADES.length / TOTAL_LESSONS))
 export function heroLook(lessons) {
   const look = { ...BASE }

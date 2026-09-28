@@ -1,5 +1,6 @@
 // One small island per lesson; the icon says what the lesson is about.
 export const LESSON_ICON = {
+  'מה זה להתעשר?': 'up',
   'לאן הכסף נעלם?': 'search', 'למיין את ההוצאות': 'basket', 'ההוצאות שלכם': 'receipt', 'הוצאות של פעם בשנה': 'calendar', 'מיתוסים על חודש "שקט"': 'doc', 'יתרה או עודף?': 'drop', 'המספר שלכם': 'coin',
   'לדעת מה יוצא': 'receipt', 'ההוצאות שלא מופיעות בחודש רגיל': 'calendar', 'העודף האמיתי שלכם': 'drop',
   'כמה חודשים יש לכם': 'clock', 'כמה כרית באמת צריך': 'shield', 'איפה מחזיקים כרית': 'bank',

@@ -523,3 +523,7 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .drama.calm .d2{animation-delay:1s}
 .drama.calm .d3{animation-delay:1.9s; font-size:26px; color:var(--ink)}
 .drama-cta.quick{animation-delay:2.6s}
+.richbox{background:var(--card); border:2px solid var(--line); border-radius:20px; padding:14px; display:grid; gap:10px}
+.richbox input[type=range]{width:100%; accent-color:var(--cta)}
+.rich-cap{font-size:15.5px; line-height:1.55; background:var(--soft); border-radius:14px; padding:10px 12px}
+.rich-cap.good{background:#fff5dc}

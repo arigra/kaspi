@@ -15,11 +15,12 @@ import Choice from './lesson/Choice.jsx'
 import Cards from './lesson/Cards.jsx'
 import Live from './lesson/Live.jsx'
 import MyOwn from './lesson/MyOwn.jsx'
+import RichChart from './lesson/RichChart.jsx'
 import { sfx } from '../lib/sound.js'
 import { GOOD, OFF, pick } from '../lib/format.js'
 
 const TOOLS = { surplus: SurplusTool }
-const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission, scene: HeroScene, choice: Choice, cards: Cards, live: Live, mine: MyOwn }
+const SCREENS = { story: Story, predict: Predict, slider: Slider, explain: Explain, sort: Sort, swipe: Swipe, mission: Mission, scene: HeroScene, choice: Choice, cards: Cards, live: Live, mine: MyOwn, rich: RichChart }
 
 const HINTS = {
   story: 'מכירים את מאיה? הנה היא.',
@@ -34,6 +35,8 @@ const HINTS = {
   swipe: 'תחליקו ימינה לעובדה, שמאלה למיתוס - או לחצו.',
   tool: 'עכשיו עם מספרים - שלכם, או של כספי.',
   mission: 'משימה קטנה לעולם האמיתי. אין לחץ.',
+  mine: 'עכשיו תורכם. שלוש הוצאות, בלי סכומים.',
+  rich: 'הזיזו את המחוון ותראו מה קורה לפער.',
   card: 'זה נכנס לאוסף שלכם.'
 }
 

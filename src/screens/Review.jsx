@@ -56,11 +56,12 @@ function ScreenView({ s }) {
     case 'mission': return <p><b>צעד קטן:</b> {s.text}</p>
     case 'live': { const r = s.compute(s.start ?? s.min); return (<><h4>{s.prompt}</h4><p>{s.label} · {r.big} · {r.caption}</p><p>{s.takeaway}</p></>) }
     case 'tool': return <p>מחשבון העודף (הכנסה, קבועות, גמישות)</p>
+    case 'rich': return (<><h4>{s.prompt}</h4><p>גרף: נכנס מול יוצא לאורך שנה, עם מחוון &quot;כמה פחות כספי מוציא בכל חודש&quot;. הפער המוצלל = מה שנשאר.</p></>)
     default: return <p>{s.type}</p>
   }
 }
 
-const TYPE_NAMES = { choice: 'החלטה', cards: 'כרטיסים', predict: 'שאלה', slider: 'מחוון', sort: 'מיון', swipe: 'מיתוס/עובדה', mine: 'ההוצאות שלכם', mission: 'צעד קטן', live: 'מחוון חי', tool: 'מחשבון', story: 'סיפור', scene: 'סצנה', explain: 'הסבר' }
+const TYPE_NAMES = { choice: 'החלטה', cards: 'כרטיסים', predict: 'שאלה', slider: 'מחוון', sort: 'מיון', swipe: 'מיתוס/עובדה', mine: 'ההוצאות שלכם', mission: 'צעד קטן', rich: 'גרף להתעשר', live: 'מחוון חי', tool: 'מחשבון', story: 'סיפור', scene: 'סצנה', explain: 'הסבר' }
 
 export default function Review() {
   const [tab, setTab] = useState('lessons')
