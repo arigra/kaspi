@@ -530,3 +530,8 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .rich-flow{display:flex; justify-content:space-between; gap:6px; font-size:13.5px; color:var(--muted)}
 .rich-flow span{background:var(--soft); border-radius:10px; padding:6px 8px; flex:1; text-align:center}
 .rich-flow b{display:block; color:var(--ink); font-size:15px}
+.richbox.inv{margin-top:12px}
+.inv-title{font-size:16px}
+.inv-legend{display:flex; gap:14px; font-size:13.5px; font-weight:700}
+.inv-legend i{display:inline-block; width:14px; height:4px; border-radius:2px; margin-inline-end:6px; vertical-align:middle}
+.inv-note{color:var(--muted); line-height:1.5}
