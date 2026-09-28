@@ -27,7 +27,7 @@ export default function Sort({ screen, react, next }) {
     setOk(screen.items.map((_, i) => !wrong.includes(i)))
     if (!wrong.length) { setSolved(true); react(true, hadMiss ? 'עכשיו הכול במקום!' : 'מיון מושלם!'); return }
     setHadMiss(true); setShake(wrong)
-    react(false, wrong.length === 1 ? 'כמעט — פריט אחד עוד מחפש מקום' : `כמעט — ${wrong.length} פריטים עוד מחפשים מקום`)
+    react(false, wrong.length === 1 ? 'כמעט - פריט אחד עוד מחפש מקום' : `כמעט - ${wrong.length} פריטים עוד מחפשים מקום`)
     setTimeout(() => { setPlaced((p) => p.map((v, j) => (wrong.includes(j) ? null : v))); setShake([]) }, 650)
   }
 

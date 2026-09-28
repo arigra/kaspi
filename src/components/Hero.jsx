@@ -74,9 +74,8 @@ function Shirt({ look, pal, pk }) {
   )
   if (s === 'tank') return (
     <>
-      <path d="M104 186 q46 -10 92 0 l12 70 l-10 -6 l-8 10 l-9 -8 l-10 9 l-9 -9 l-10 8 l-9 -9 l-9 9 l-9 -8 l-10 10 l-8 -9 l-9 6z" fill={SHIRT.tank} />
+      <path d="M104 186 q46 -10 92 0 l12 88 h-116z" fill={SHIRT.tank} />
       <path d="M104 186 q-4 -8 6 -10 M196 186 q4 -8 -6 -10" stroke={SHIRT.tank} strokeWidth="8" strokeLinecap="round" />
-      <circle cx="170" cy="222" r="7" fill="#d9ceb4" /><circle cx="130" cy="240" r="5" fill="#d9ceb4" /><path d="M186 232 l8 6 l-6 4z" fill={pal.hi} />
     </>
   )
   const base = <path d="M96 186 q54 -22 112 0 l4 88 h-120z" fill={SHIRT[s]} />
@@ -129,23 +128,26 @@ function Hand({ x, y, rings, skin }) {
 }
 
 function RightItem({ look }) {
-  const r = look.right
-  if (r === 'ravkav') return <g transform="translate(246 244) rotate(-12)"><rect x="-20" y="-13" width="40" height="26" rx="4" fill="#1f6fb8" /><rect x="-20" y="-13" width="40" height="7" rx="3" fill="#2f8f5b" /><text x="0" y="8" textAnchor="middle" fontFamily="Arial" fontWeight="700" fontSize="9" fill="#fff" direction="rtl">רב־קו</text></g>
-  if (r === 'flip') return <g transform="translate(250 236) rotate(-8)"><rect x="-8" y="-20" width="16" height="30" rx="3" fill="#8a8f96" /><rect x="-5" y="-16" width="10" height="10" fill="#9fd3a0" /><path d="M-5 0 h10 M-5 4 h10" stroke="#5a5f66" strokeWidth="1.5" /></g>
-  if (r === 'phone') return <g transform="translate(252 234) rotate(-10)"><rect x="-10" y="-20" width="20" height="36" rx="4" fill="#1d2430" /><rect x="-8" y="-17" width="16" height="28" rx="2" fill="#6fb6e8" /></g>
-  if (r === 'wallet') return <g transform="translate(250 244) rotate(-12)"><rect x="-12" y="-22" width="26" height="14" fill="#6fae6b" transform="rotate(-8)" /><rect x="-10" y="-20" width="26" height="14" fill="#83c27f" transform="rotate(6)" /><rect x="-16" y="-10" width="32" height="22" rx="4" fill="#6b4a2e" /></g>
-  const big = r === 'cigarBig'
+  if (look.right === 'wallet') return <g transform="translate(250 244) rotate(-12)"><rect x="-12" y="-22" width="26" height="14" fill="#6fae6b" transform="rotate(-8)" /><rect x="-10" y="-20" width="26" height="14" fill="#83c27f" transform="rotate(6)" /><rect x="-16" y="-10" width="32" height="22" rx="4" fill="#6b4a2e" /></g>
+  return null
+}
+
+// Cigar clamped in the corner of the grin.
+function Cigar({ look }) {
+  if (!look.cigar || look.cigar === 'none') return null
+  const big = look.cigar === 'big'
+  const L = big ? 58 : 40
   return (
     <g>
-      <g transform="translate(248 246) rotate(-28)">
-        <rect x="-4" y={big ? -56 : -38} width={big ? 11 : 8} height={big ? 60 : 42} rx="4" fill="#6b3e22" />
-        <rect x="-4" y={big ? -30 : -18} width={big ? 11 : 8} height="6" fill="#e0344b" />
-        <rect x="-4" y={big ? -30 : -18} width={big ? 11 : 8} height="2" fill="#f2c14e" />
-        {look.smoke && <circle cx={big ? 1.5 : 0} cy={big ? -58 : -40} r="4" fill="#ff7a2e" />}
+      <g transform="translate(188 158) rotate(-18)">
+        <rect x="0" y="-4" width={L} height={big ? 10 : 8} rx="4" fill="#6b3e22" />
+        <rect x="8" y="-4" width="6" height={big ? 10 : 8} fill="#e0344b" />
+        <rect x="8" y="-4" width="2" height={big ? 10 : 8} fill="#f2c14e" />
+        {look.smoke && <rect x={L - 3} y="-4" width="5" height={big ? 10 : 8} rx="2" fill="#ff7a2e" />}
       </g>
       {look.smoke && (
-        <g className="h-smoke" fill={look.smokeRings ? 'none' : '#cfd6dc'} stroke={look.smokeRings ? '#cfd6dc' : 'none'} strokeWidth="3" opacity=".8">
-          <circle cx={big ? 282 : 272} cy={big ? 186 : 204} r="6" /><circle cx={big ? 290 : 280} cy={big ? 172 : 190} r="8" /><circle cx={big ? 284 : 274} cy={big ? 154 : 172} r="10" />
+        <g className="h-smoke" fill={look.smokeRings ? 'none' : '#cfd6dc'} stroke={look.smokeRings ? '#b9c3ca' : 'none'} strokeWidth="3" opacity=".85">
+          <circle cx={big ? 248 : 232} cy={big ? 124 : 132} r="6" /><circle cx={big ? 256 : 240} cy={big ? 108 : 116} r="8" /><circle cx={big ? 250 : 234} cy={big ? 88 : 96} r="10" />
         </g>
       )}
     </g>
@@ -155,6 +157,8 @@ function RightItem({ look }) {
 function LeftItem({ look }) {
   const l = look.left
   if (l === 'none') return null
+  if (l === 'flip') return <g transform="translate(52 232) rotate(8)"><rect x="-8" y="-20" width="16" height="30" rx="3" fill="#8a8f96" /><rect x="-5" y="-16" width="10" height="10" fill="#9fd3a0" /><path d="M-5 0 h10 M-5 4 h10" stroke="#5a5f66" strokeWidth="1.5" /></g>
+  if (l === 'phone') return <g transform="translate(50 230) rotate(10)"><rect x="-10" y="-20" width="20" height="36" rx="4" fill="#1d2430" /><rect x="-8" y="-17" width="16" height="28" rx="2" fill="#6fb6e8" /></g>
   if (l === 'coffee') return <g transform="translate(52 234)"><path d="M-10 -14 h20 l-3 26 h-14z" fill="#fff" stroke="#c8b69a" strokeWidth="1.5" /><rect x="-10" y="-18" width="20" height="5" rx="2" fill="#2f6e4b" /><rect x="-9" y="-4" width="18" height="7" fill="#2f6e4b" /></g>
   return (
     <g transform="translate(50 230)">
@@ -174,6 +178,7 @@ function Hat({ look, pal }) {
       <g stroke="#8f3a2e" strokeWidth="2" opacity=".55" fill="none"><path d="M110 80 Q108 40 128 24" /><path d="M130 74 Q130 38 142 18" /><path d="M170 74 Q170 38 158 18" /><path d="M190 80 Q192 40 172 24" /></g>
       <path d="M80 84 Q150 62 220 84 L222 104 Q150 82 78 104z" fill="#8f3a2e" />
       <path d="M126 30 l10 -3 l2 9 l-10 3z" fill="#6b8a5c" />
+      <ellipse cx="176" cy="48" rx="6" ry="4.5" fill={pal.hi} /><ellipse cx="110" cy="62" rx="4.5" ry="3.5" fill={pal.hi} /><ellipse cx="152" cy="36" rx="3.5" ry="3" fill={pal.hi} />
       <path className="h-fin" d="M140 22 q14 -40 40 -34 q-14 18 -16 38z" fill={pal.lo} />
     </g>
   )
@@ -209,8 +214,8 @@ function Hat({ look, pal }) {
 function Eyes({ look }) {
   const e = look.eyes
   if (e === 'none') return null
-  const frame = e === 'goldShades' ? '#f2c14e' : e === 'aviator' ? '#c9a24a' : e === 'readers' ? '#2c414d' : '#e0344b'
-  const lens = e === 'readers' ? 'rgba(255,255,255,.18)' : e === 'cheap' ? '#2a2a35' : e === 'aviator' ? '#3c4a5a' : '#1d2430'
+  const frame = e === 'goldShades' ? '#f2c14e' : e === 'aviator' ? '#c9a24a' : e === 'readers' ? '#2c414d' : e === 'designer' ? '#141414' : '#e0344b'
+  const lens = e === 'readers' ? 'rgba(255,255,255,.18)' : e === 'designer' ? '#3a2a20' : e === 'cheap' ? '#2a2a35' : e === 'aviator' ? '#3c4a5a' : '#1d2430'
   return (
     <g>
       {e === 'aviator'
@@ -236,12 +241,10 @@ function Chains({ look }) {
   const n = look.neck
   return (
     <>
-      {n === 'silver' && <path d="M124 186 q26 20 52 0" stroke="#cfd6dc" strokeWidth="2.5" fill="none" />}
-      {n === 'goldThin' && <path d="M122 186 q28 24 56 0" stroke="#f2c14e" strokeWidth="3" fill="none" />}
-      {(n === 'goldThick' || n === 'medallion') && <path d="M118 186 q32 30 64 0" stroke="#f2c14e" strokeWidth="6" fill="none" strokeDasharray="6 2" />}
-      {n === 'medallion' && <g><circle cx="150" cy="222" r="15" fill="#f2c14e" stroke="#b8862b" strokeWidth="2.5" /><text x="150" y="229" textAnchor="middle" fontSize="18" fontWeight="900" fill="#8a5a12">₪</text></g>}
-      {look.neck2 && <path d="M112 186 q38 44 76 0" stroke="#f2c14e" strokeWidth="4" fill="none" strokeDasharray="4 3" />}
-      {look.neck3 && <path d="M106 186 q44 56 88 0" stroke="#e8eef2" strokeWidth="3.5" fill="none" strokeDasharray="3 3" />}
+      {n === 'silver' && <><path d="M116 190 q34 40 68 0" stroke="#e8eef2" strokeWidth="4" fill="none" /><path d="M116 190 q34 40 68 0" stroke="#9aa6ae" strokeWidth="1.5" fill="none" strokeDasharray="3 3" /><circle cx="150" cy="221" r="4" fill="#e8eef2" stroke="#9aa6ae" /></>}
+      {n === 'goldThin' && <><path d="M114 190 q36 44 72 0" stroke="#f2c14e" strokeWidth="5" fill="none" /><path d="M114 190 q36 44 72 0" stroke="#b8862b" strokeWidth="1.5" fill="none" strokeDasharray="3 3" /></>}
+      {(n === 'goldThick' || n === 'medallion') && <path d="M110 190 q40 52 80 0" stroke="#f2c14e" strokeWidth="9" fill="none" strokeDasharray="8 2" />}
+      {n === 'medallion' && <g><circle cx="150" cy="232" r="17" fill="#f2c14e" stroke="#b8862b" strokeWidth="3" /><text x="150" y="240" textAnchor="middle" fontSize="20" fontWeight="900" fill="#8a5a12">₪</text></g>}
     </>
   )
 }
@@ -294,7 +297,7 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
           <Shirt look={look} pal={pal} pk={pk} />
           {look.tie && <path d="M150 190 l-7 8 l7 44 l7 -44z" fill="#c0392b" />}
           {look.chestHair && (look.shirt === 'silk' || look.shirt === 'none') && <path d="M142 196 q3 -4 6 0 q3 4 6 0 M140 206 q4 -4 8 0 q4 4 8 0 M144 216 q3 -4 6 0" stroke="#3a4a55" strokeWidth="1.8" fill="none" />}
-          {look.headphones && <><path d="M110 188 q40 34 80 0" stroke="#2a2a30" strokeWidth="5" fill="none" /><circle cx="110" cy="190" r="8" fill="#e0344b" /><circle cx="190" cy="190" r="8" fill="#e0344b" /></>}
+          {look.headphones && <><path d="M100 200 q50 34 100 0" stroke="#2a2a30" strokeWidth="6" fill="none" /><ellipse cx="100" cy="200" rx="11" ry="14" fill="#e0344b" stroke="#2a2a30" strokeWidth="3" /><ellipse cx="200" cy="200" rx="11" ry="14" fill="#e0344b" stroke="#2a2a30" strokeWidth="3" /></>}
           <Chains look={look} />
           {look.pin && (look.shirt === 'blazer' || look.shirt === 'suitWhite') && <circle cx="120" cy="206" r="4.5" fill="#f2c14e" stroke="#b8862b" strokeWidth="1.5" />}
           {look.pocketSquare && (look.shirt === 'blazer' || look.shirt === 'suitWhite') && <path d="M172 214 l6 -8 l5 8 l5 -7 l3 7z" fill="#fff" stroke="#e0344b" strokeWidth="1.5" />}
@@ -313,9 +316,11 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
             <path d="M208 200 q34 10 44 40 q4 12 -8 12 q-16 -24 -40 -30z" fill={sleeve || `url(#h-skin-${pk})`} />
             {look.cufflinks && <circle cx="240" cy="243" r="3" fill="#f2c14e" />}
             {look.watch !== 'none' && (
-              <rect x="232" y="235" width="15" height="9" rx="2.5" transform="rotate(35 239 240)"
-                fill={look.watch === 'plastic' ? '#e0344b' : look.watch === 'gold' ? '#f2c14e' : '#e8eef2'}
-                stroke={look.watch === 'diamond' ? '#9fd3e6' : 'none'} strokeWidth="2" />
+              <g transform="rotate(35 234 236)">
+                <rect x="222" y="229" width="24" height="13" rx="3" fill={look.watch === 'plastic' ? '#e0344b' : look.watch === 'gold' ? '#f2c14e' : '#eef4f8'} stroke={look.watch === 'gold' ? '#b8862b' : look.watch === 'diamond' ? '#7fc4e0' : '#9a2433'} strokeWidth="2" />
+                <circle cx="234" cy="235.5" r="4.5" fill="#fff" stroke="#333" strokeWidth="1" />
+                {look.watch === 'diamond' && [226, 242].map((x) => <circle key={x} cx={x} cy="235.5" r="2" fill="#c9f0ff" />)}
+              </g>
             )}
             <RightItem look={look} />
             {look.bracelet2 && <path d="M232 244 q8 -7 17 -1" stroke="#cfd6dc" strokeWidth="3" fill="none" />}
@@ -335,6 +340,7 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
             <Brows brow={look.brow} pal={pal} />
             {look.brow === 'sad' && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke={pal.hi} strokeWidth="2" fill="none" />}
             <Teeth look={look} />
+            <Cigar look={look} />
             {look.toothpick && <path d="M190 152 L216 138" stroke="#d9b27a" strokeWidth="3" strokeLinecap="round" />}
             {look.finRing && look.hat !== 'beanie' && look.hat !== 'cap' && <circle cx="170" cy="14" r="5" fill="none" stroke="#f2c14e" strokeWidth="2.5" />}
             {look.bandage && <g transform="rotate(25 198 78)"><rect x="186" y="74" width="24" height="9" rx="3" fill="#e9c89a" /><path d="M192 74 v9 M198 76 v9" stroke="#c9a376" strokeWidth="1.5" /></g>}

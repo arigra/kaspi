@@ -13,7 +13,7 @@ export default function Swipe({ screen, react, next }) {
 
   const answer = (v) => {
     const ok = (v === 'fact') === card.isTrue
-    setAns(v); setDx(0); react(ok, ok ? 'נכון!' : 'לא בדיוק — זה מה שמטעה')
+    setAns(v); setDx(0); react(ok, ok ? 'נכון!' : 'לא בדיוק - זה מה שמטעה')
   }
   const onDown = (e) => { drag.current = e.clientX; e.currentTarget.setPointerCapture(e.pointerId) }
   const onMove = (e) => { if (drag.current !== null) setDx(e.clientX - drag.current) }

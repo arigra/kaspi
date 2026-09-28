@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { STAGES, challengeScreens } from '../content/index.js'
-import { LESSON_UPGRADES, CHAPTER_UPGRADES, heroLook } from '../content/upgrades.js'
+import { LESSON_UPGRADES, CHAPTER_UPGRADES, heroLook, lessonUpgrade, TOTAL_LESSONS } from '../content/upgrades.js'
 import { GUIDES } from '../content/guides.js'
 import Hero from '../components/Hero.jsx'
 import Scene from '../components/Scene.jsx'
@@ -102,7 +102,7 @@ export default function Review() {
                 return (
                   <div key={li} className="rv-lesson">
                     <div className="rv-lhead"><b>{lessonNo}. {l.title}</b><small>{l.minutes} דק׳ · {l.goal || ''}</small>
-                      <span className="rv-prize">פרס: {LESSON_UPGRADES[lessonNo - 1]?.[0] || '—'}</span></div>
+                      <span className="rv-prize">פרס: {lessonUpgrade(lessonNo) || 'אין (שיעור בלי שדרוג)'}</span></div>
                     {l.screens.map((s, k) => (
                       <div key={k} className="rv-screen">
                         <small className="rv-type">מסך {k + 1} · {TYPE_NAMES[s.type] || s.type}</small>
@@ -136,7 +136,7 @@ export default function Review() {
           <div className="rv-grid">
             {[['ההתחלה', 0], ...LESSON_UPGRADES.map(([n], i) => [n, i + 1])].map(([n, i]) => (
               <div key={i} className="rv-cell">
-                <div className="rv-fig"><Hero look={heroLook(i)} view="full" /></div>
+                <div className="rv-fig"><Hero look={heroLook(Math.floor(i * TOTAL_LESSONS / LESSON_UPGRADES.length))} view="full" /></div>
                 <b>{i}. {n}</b>
                 <Note id={`prize-${i}`} label={`פרס שיעור ${i}: ${n}`} notes={notes} setNote={setNote} />
               </div>
@@ -174,7 +174,7 @@ export default function Review() {
             <div className="rv-cell"><div className="rv-fig"><SharkGirl /></div><b>הראשונה</b><Note id="cast-gf1" label="דמות: הכרישה הראשונה" notes={notes} setNote={setNote} /></div>
             <div className="rv-cell"><div className="rv-fig"><SharkGirl skin="#c9b3f3" deep="#9a7fd6" bikini="#f5c518" cocktail /></div><b>השנייה</b><Note id="cast-gf2" label="דמות: הכרישה השנייה" notes={notes} setNote={setNote} /></div>
           </div>
-          <div className="rv-screen"><b>הערה כללית על הדמויות</b><Note id="cast-general" label="דמויות — כללי" notes={notes} setNote={setNote} /></div>
+          <div className="rv-screen"><b>הערה כללית על הדמויות</b><Note id="cast-general" label="דמויות - כללי" notes={notes} setNote={setNote} /></div>
         </section>
       )}
 

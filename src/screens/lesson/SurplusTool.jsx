@@ -6,7 +6,7 @@ import { sfx } from '../../lib/sound.js'
 const FIELDS = [
   ['income', 'הכנסה חודשית נטו', 'מה שבאמת נכנס לחשבון'],
   ['commitments', 'התחייבויות קבועות', 'שכר דירה או משכנתא, הלוואות, ביטוחים, מנויים'],
-  ['flexible', 'הוצאות גמישות', 'סופר, אוכל בחוץ, תחבורה — בחודש רגיל']
+  ['flexible', 'הוצאות גמישות', 'סופר, אוכל בחוץ, תחבורה - בחודש רגיל']
 ]
 
 export default function SurplusTool({ profile, setProfile, next }) {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Foot, Cta } from './parts.jsx'
 import { sfx } from '../../lib/sound.js'
 
-// A short idea told in 2–4 tap-through cards, like stories.
+// A short idea told in 2-4 tap-through cards, like stories.
 import Hero from '../../components/Hero.jsx'
 
 export default function Cards({ screen, next, look }) {

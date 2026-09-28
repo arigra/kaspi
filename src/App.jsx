@@ -14,7 +14,7 @@ import { coinsOf, chaptersOf, heroLook } from './content/upgrades.js'
 export default function App() {
   const [state, setState] = usePersistentState()
   const [view, setView] = useState(state.onboarded ? 'home' : 'onboarding')
-  const [play, setPlay] = useState(null)   // { chapterId, lesson } — lesson -1 is the challenge
+  const [play, setPlay] = useState(null)   // { chapterId, lesson } - lesson -1 is the challenge
   const [sheet, setSheet] = useState(null) // { type: 'item' | 'settings', key? }
   const [toast, setToast] = useState(null)
   const [viewStage, setViewStage] = useState(null)
@@ -51,7 +51,7 @@ export default function App() {
     openSettings: () => setSheet({ type: 'settings' }),
     openItem: (key) => { setSheet({ type: 'item', key }); sfx.tap() },
     openWorld: () => { setSheet({ type: 'world' }); sfx.tap() },
-    skipChapter: (id) => { update((s) => ({ skipped: { ...s.skipped, [id]: true } })); sfx.tap(); flash('דילגתם — אפשר לחזור בכל רגע') },
+    skipChapter: (id) => { update((s) => ({ skipped: { ...s.skipped, [id]: true } })); sfx.tap(); flash('דילגתם - אפשר לחזור בכל רגע') },
     openChapter: (id) => {
       if (chapterById(id).writing) { flash('הפרק הזה עוד נכתב'); return }
       update((s) => ({ skipped: { ...s.skipped, [id]: false } })); setViewStage(chapterById(id).stage); setFocusChapter(id); setView('home'); setSheet(null)

@@ -62,7 +62,7 @@ export default function Home({ state, stageIndex, setStage, next, focusChapter, 
         const done = state.done[c.id] || []
         const allDone = done.length === c.lessons.length
         const tag = status === 'done' ? 'הפרק הושלם'
-          : status === 'skipped' ? 'דילגתם — אפשר לחזור בכל רגע'
+          : status === 'skipped' ? 'דילגתם - אפשר לחזור בכל רגע'
             : `${done.length} מתוך ${c.lessons.length} שיעורים`
         return (
           <div key={c.id} id={`ch-${c.id}`} className="chapter">

@@ -26,7 +26,7 @@ export const STAGES = [
     L({ id: 'allocation', title: 'טווח והקצאה', guide: J, refs: ['i2'], item: it('hourglass', 'שעון חול', 'ההשקעה מתחילה מהשאלה מתי הכסף יידרש.') }),
     L({ id: 'mind', title: 'הראש והתזמון', guide: J, refs: ['i10','i11'], item: it('octopus', 'תמנון', 'הראש הוא חלק מהתיק.') }),
     L({ id: 'rebalance', title: 'איזון מחדש', guide: J, refs: ['i12','i13'], item: it('scale', 'מאזניים', 'תוכנית שאפשר לחזור עליה כל שנה.') }),
-    L({ id: 'realestate', title: 'נדל״ן בתוך התמונה', refs: ['r0','r1','r2','r3','r4','r5','r6','r7','r8','r9','r10','r11'], item: it('house', 'בית', 'דירה היא נכס, הלוואה והחלטה — ואתם יודעים להפריד ביניהם.') })] }
+    L({ id: 'realestate', title: 'נדל״ן בתוך התמונה', refs: ['r0','r1','r2','r3','r4','r5','r6','r7','r8','r9','r10','r11'], item: it('house', 'בית', 'דירה היא נכס, הלוואה והחלטה - ואתם יודעים להפריד ביניהם.') })] }
 ]
 
 export const CHAPTERS = STAGES.flatMap((stage, stageIndex) =>

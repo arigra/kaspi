@@ -509,3 +509,4 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .rv-export{width:100%; min-height:300px; border:2px solid var(--line); border-radius:12px; padding:10px; font:inherit; font-size:14px}
 .rv-copy{position:fixed; bottom:14px; left:50%; transform:translateX(-50%); width:min(92vw,480px); border:0; border-radius:16px; padding:14px; font:inherit; font-weight:800; font-size:16px; background:var(--cta); color:#fff; box-shadow:0 4px 0 var(--cta-deep,#a86b1c); z-index:6}
 .rv-copy:disabled{opacity:.45}
+.sc-jet svg{transform:scaleX(-1)}

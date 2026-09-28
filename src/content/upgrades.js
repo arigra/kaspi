@@ -3,9 +3,9 @@
 
 const BASE = {
   shirt: 'none', hat: 'beanie', missing: ['t3', 't8', 'b5'], crook: 1, white: false, gold: 0, grill: false,
-  pants: 'rag', pocketsOut: true, patch: true, shoes: 'flipMismatch', right: 'ravkav', smoke: false,
+  pants: 'rag', pocketsOut: true, patch: true, shoes: 'flipMismatch', right: 'none', cigar: 'none', smoke: false,
   left: 'none', neck: 'none', neck2: false, watch: 'none', watch2: false, bracelet: false, earring: 'none',
-  rings: 0, eyes: 'none', brow: 'sad', bandage: true, tie: false, cufflinks: false, fur: false, feather: false,
+  rings: 0, eyes: 'none', brow: 'sad', bandage: false, tie: false, cufflinks: false, fur: false, feather: false,
   socks: 'none', toothpick: false, tattoo: false, finRing: false, headphones: false, bracelet2: false, chestHair: false,
   pin: false, pocketSquare: false, smokeRings: false, buckle: false, diamondTooth: false, neck3: false, cape: false
 }
@@ -14,61 +14,44 @@ const BASE = {
 export const LESSON_UPGRADES = [
   ['כיסים במקום!', { pocketsOut: false }],
   ['כפכפים באותו צבע!', { shoes: 'flip' }],
-  ['גרביים!', { socks: 'mismatch' }],
-  ['בלי פלסטר!', { bandage: false }],
   ['גופייה!', { shirt: 'tank' }],
-  ['טלפון מקופל!', { right: 'flip' }],
-  ['שן חדשה!', { missing: ['t8', 'b5'] }],
-  ['מכנסיים בלי טלאי!', { patch: false }],
-  ['עוד שן!', { missing: ['t8'] }],
-  ['פחות לחוץ!', { brow: 'neutral' }],
+  ['טלפון מקופל!', { left: 'flip' }],
+  ['כל השיניים!', { missing: [] }],
+  ['תיקון מכנסיים!', { patch: false }],
+  ['ביטחון עצמי!', { brow: 'confident' }],
   ['שעון!', { watch: 'plastic' }],
-  ['קיסם!', { toothpick: true }],
   ['סניקרס!', { shoes: 'sneaker' }],
-  ['גרביים תואמות!', { socks: 'match' }],
   ['חולצה שלמה!', { shirt: 'tee' }],
   ['כובע מצחייה!', { hat: 'cap' }],
-  ['שיניים פחות עקומות!', { crook: 0.6 }],
-  ['סמארטפון!', { right: 'phone' }],
-  ['כל השיניים!', { missing: [] }],
+  ['שיניים ישרות!', { crook: 0 }],
+  ['סמארטפון!', { left: 'phone' }],
   ['ג׳ינס!', { pants: 'jeans' }],
-  ['עגיל!', { earring: 'stud' }],
   ['צמיד!', { bracelet: true }],
-  ['קעקוע!', { tattoo: true }],
-  ['שיניים כמעט ישרות!', { crook: 0.3 }],
   ['שרשרת!', { neck: 'silver' }],
   ['משקפי שמש!', { eyes: 'cheap' }],
-  ['ביי ביי כובע גרב!', { hat: 'none' }],
-  ['פירסינג בסנפיר!', { finRing: true }],
+  ['בלי כובע!', { hat: 'none' }],
   ['חולצת הוואי!', { shirt: 'hawaii' }],
   ['אוזניות!', { headphones: true }],
-  ['חיוך מושלם!', { crook: 0, white: true }],
-  ['סניקרס זהב!', { shoes: 'goldSneaker' }],
+  ['חיוך מושלם!', { white: true }],
   ['טבעת!', { rings: 1 }],
-  ['ביטחון עצמי!', { brow: 'confident' }],
   ['ארנק מלא!', { right: 'wallet' }],
   ['שרשרת זהב!', { neck: 'goldThin' }],
   ['שעון זהב!', { watch: 'gold' }],
-  ['משקפי טייסים!', { eyes: 'aviator' }],
+  ['משקפי מעצבים!', { eyes: 'designer' }],
   ['חולצה מכופתרת!', { shirt: 'button' }],
   ['עוד טבעת!', { rings: 2 }],
   ['צמיד שני!', { bracelet2: true }],
-  ['שן זהב!', { gold: 1 }],
-  ['קפה ב־28 שקל!', { left: 'coffee' }],
+  ['קפה בחוץ!', { left: 'coffee' }],
   ['מכנסי פשתן!', { pants: 'linen' }],
   ['מוקסינים!', { shoes: 'loafer' }],
   ['שרשרת עבה!', { neck: 'goldThick' }],
   ['חולצת משי!', { shirt: 'silk' }],
-  ['שיער בחזה!', { chestHair: true }],
-  ['טבעת שלישית!', { rings: 3 }],
-  ['עגיל יהלום!', { earring: 'diamond' }],
   ['בלייזר!', { shirt: 'blazer' }],
   ['סיכה בדש!', { pin: true }],
-  ['סיגר!', { right: 'cigar' }],
+  ['סיגר!', { cigar: 'small' }],
   ['מבט של מיליונר!', { brow: 'smug' }],
-  ['פדורה!', { hat: 'fedora' }],
+  ['כובע של מאפיונר!', { hat: 'fedora' }],
   ['וויסקי!', { left: 'whiskey' }],
-  ['עוד שן זהב!', { gold: 2 }],
   ['מכנסי חליפה!', { pants: 'suit' }],
   ['נעלי עור!', { shoes: 'dress' }],
   ['עניבה!', { tie: true }],
@@ -78,35 +61,23 @@ export const LESSON_UPGRADES = [
   ['חליפה לבנה!', { shirt: 'suitWhite' }],
   ['הסיגר דולק!', { smoke: true }],
   ['טבעות עשן!', { smokeRings: true }],
-  ['טבעת רביעית!', { rings: 4 }],
   ['אבזם ענק!', { buckle: true }],
   ['משקפי זהב!', { eyes: 'goldShades' }],
-  ['חפתים!', { cufflinks: true }],
-  ['קרח בוויסקי!', { left: 'whiskeyIce' }],
-  ['ארבע שיני זהב!', { gold: 4 }],
-  ['שן יהלום!', { diamondTooth: true }],
   ['מעיל פרווה!', { fur: true }],
-  ['סיגר ענק!', { right: 'cigarBig' }],
-  ['טבעת בכל אצבע!', { rings: 5 }],
-  ['טבעת באגודל!', { rings: 6 }],
+  ['סיגר ענק!', { cigar: 'big' }],
   ['גריל זהב!', { grill: true }],
-  ['נוצה בפדורה!', { feather: true }],
-  ['שני שעונים!', { watch2: true }],
-  ['גלימה אדומה!', { cape: true }],
-  ['עוד שרשרת!', { neck2: true }],
-  ['שרשרת שלישית!', { neck3: true }],
   ['כתר!', { hat: 'crown' }]
 ]
 
 // index i = what the (i+1)-th finished chapter brings
 export const CHAPTER_UPGRADES = [
   { name: 'אופניים!', text: 'יד שנייה, בלי בלמים. אבל שלו.' },
-  { name: 'חדר משלו!', text: 'שלום ספסל, שלום חדר עם חלון.' },
+  { name: 'חדר משלו!', text: 'להתראות ספסל, שלום חדר עם חלון.' },
   { name: 'קטנוע!', text: 'עכשיו מגיעים לעבודה בזמן.' },
-  { name: 'אוטו ראשון!', text: 'בן 19, דלת אחת בצבע אחר. מושלם.' },
+  { name: 'אוטו ראשון!', text: 'דלת אחת בצבע אחר. מושלם.' },
   { name: 'דירה!', text: 'שלושה חדרים ומרפסת שמש.' },
   { name: 'חברה כוסית!', text: 'היא ראתה את טבלת ההוצאות שלו ונדלקה.' },
-  { name: 'קבריולט!', text: 'גג נפתח. השיער — כלומר הסנפיר — ברוח.' },
+  { name: 'קבריולט!', text: 'גג נפתח. השיער - כלומר הסנפיר - ברוח.' },
   { name: 'בית עם גינה!', text: 'דשא, עץ, ומקום לגריל.' },
   { name: 'בריכה!', text: 'כי כריש צריך מים.' },
   { name: 'אוטו ספורט!', text: 'אדום, נמוך, ושולם במזומן. כמובן.' },
@@ -121,10 +92,13 @@ export const CHAPTER_UPGRADES = [
 export const coinsOf = (state) => Object.values(state.done || {}).reduce((a, d) => a + d.length, 0)
 export const chaptersOf = (state) => Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length
 
+// Upgrades are spread evenly over all lessons, so the last lesson brings the crown.
+export const TOTAL_LESSONS = 84
+export const upgradesAt = (lessons) => Math.min(LESSON_UPGRADES.length, Math.ceil(lessons * LESSON_UPGRADES.length / TOTAL_LESSONS))
 export function heroLook(lessons) {
   const look = { ...BASE }
-  LESSON_UPGRADES.slice(0, lessons).forEach(([, patch]) => Object.assign(look, patch))
+  LESSON_UPGRADES.slice(0, upgradesAt(lessons)).forEach(([, patch]) => Object.assign(look, patch))
   return look
 }
-export const lessonUpgrade = (lessons) => LESSON_UPGRADES[lessons - 1]?.[0]
+export const lessonUpgrade = (lessons) => (upgradesAt(lessons) > upgradesAt(lessons - 1) ? LESSON_UPGRADES[upgradesAt(lessons) - 1][0] : null)
 export const chapterUpgrade = (chapters) => CHAPTER_UPGRADES[chapters - 1]
