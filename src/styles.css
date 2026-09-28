@@ -527,3 +527,6 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .richbox input[type=range]{width:100%; accent-color:var(--cta)}
 .rich-cap{font-size:15.5px; line-height:1.55; background:var(--soft); border-radius:14px; padding:10px 12px}
 .rich-cap.good{background:#fff5dc}
+.rich-flow{display:flex; justify-content:space-between; gap:6px; font-size:13.5px; color:var(--muted)}
+.rich-flow span{background:var(--soft); border-radius:10px; padding:6px 8px; flex:1; text-align:center}
+.rich-flow b{display:block; color:var(--ink); font-size:15px}
