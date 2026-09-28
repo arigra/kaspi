@@ -1,43 +1,63 @@
 // Things in the hero's world, unlocked chapter by chapter.
 
-export function SharkGirl({ skin = '#f3b3c8', deep = '#d9829f', bikini = '#e0344b', cocktail = false, flip = false }) {
+export function SharkGirl({ skin = '#f3b3c8', deep = '#d9829f', bikini = '#e0344b', cocktail = false, flip = false, iris = '#2a9d8f' }) {
   const id = 'sg' + skin.slice(1)
+  const S = `url(#${id})`
   return (
     <svg className={`gf ${flip ? 'flip' : ''}`} viewBox="0 0 200 330" width="100%" height="100%" aria-hidden="true">
-      <defs><radialGradient id={id} cx="45%" cy="35%" r="70%"><stop offset="0" stopColor={skin} /><stop offset="1" stopColor={deep} /></radialGradient></defs>
-      <ellipse cx="100" cy="322" rx="54" ry="7" fill="#000" opacity=".12" />
-      <path d="M126 244 q36 4 46 -24 q-4 32 14 44 q-32 4 -60 -8z" fill={deep} />
+      <defs>
+        <radialGradient id={id} cx="40%" cy="30%" r="80%"><stop offset="0" stopColor={skin} /><stop offset="1" stopColor={deep} /></radialGradient>
+        <radialGradient id={id + 'b'} cx="35%" cy="30%" r="70%"><stop offset="0" stopColor="#fff" stopOpacity=".55" /><stop offset="1" stopColor="#fff" stopOpacity="0" /></radialGradient>
+      </defs>
+      <ellipse cx="100" cy="322" rx="46" ry="6" fill="#000" opacity=".12" />
+      {/* tail */}
+      <path d="M118 230 q34 6 46 -20 q-2 30 16 42 q-34 4 -60 -8z" fill={deep} />
       {/* legs */}
-      <path d="M76 236 q-10 40 -4 80 h12 q4 -40 12 -78z M110 238 q10 38 6 78 h12 q6 -40 -4 -80z" fill={`url(#${id})`} />
-      <path d="M64 318 h24 l-6 -10z M112 318 h24 l-6 -10z" fill={bikini} /><path d="M84 308 v12 M130 308 v12" stroke={bikini} strokeWidth="3" />
+      <path d="M80 242 C68 272, 76 298, 83 316 L93 316 C95 292, 99 268, 101 248 Z" fill={S} />
+      <path d="M120 242 C132 272, 124 298, 117 316 L107 316 C105 292, 101 268, 99 248 Z" fill={S} />
+      <path d="M78 318 q8 -8 18 -2 l0 4 h-20z M104 316 q10 -6 18 2 l2 2 h-20z" fill={bikini} />
+      <path d="M92 312 l2 10 M110 312 l-2 10" stroke={bikini} strokeWidth="2.5" />
       {/* body: hourglass */}
-      <path d="M74 146 q26 -12 52 0 q10 30 -2 50 q20 24 10 50 q-34 12 -68 0 q-10 -26 10 -50 q-12 -20 -2 -50z" fill={`url(#${id})`} />
-      <path d="M86 180 q14 10 28 0 q6 30 -2 52 q-12 4 -24 0 q-8 -22 -2 -52z" fill="#fdeef2" opacity=".7" />
+      <path d="M80 106 C64 114, 64 150, 78 170 C86 184, 84 194, 74 208 C60 228, 66 244, 84 248 L116 248 C134 244, 140 228, 126 208 C116 194, 114 184, 122 170 C136 150, 136 114, 120 106 Z" fill={S} />
+      <path d="M94 164 C90 186, 92 214, 100 232 C108 214, 110 186, 106 164 Z" fill="#fff5f8" opacity=".5" />
+      {/* bust */}
+      <circle cx="84" cy="142" r="21" fill={S} /><circle cx="116" cy="142" r="21" fill={S} />
+      <circle cx="78" cy="134" r="10" fill={`url(#${id}b)`} /><circle cx="110" cy="134" r="10" fill={`url(#${id}b)`} />
+      <path d="M100 134 q-2 12 0 24" stroke={deep} strokeWidth="1.8" opacity=".7" fill="none" />
       {/* bikini */}
-      <path d="M78 166 q10 -10 20 2 q-2 12 -20 8z M122 166 q-10 -10 -20 2 q2 12 20 8z" fill={bikini} />
-      <path d="M86 158 l12 -12 M114 158 l-12 -12" stroke={bikini} strokeWidth="2" />
-      <path d="M72 226 q28 10 56 0 q-10 16 -28 18 q-18 -2 -28 -18z" fill={bikini} />
+      <path d="M64 142 Q80 112 100 138 Q98 162 82 163 Q66 158 64 142z M136 142 Q120 112 100 138 Q102 162 118 163 Q134 158 136 142z" fill={bikini} />
+      <path d="M78 124 L92 104 M122 124 L108 104 M70 140 L64 146 M130 140 L136 146" stroke={bikini} strokeWidth="2" />
+      <path d="M76 226 Q100 238 124 226 L119 246 Q100 258 81 246 Z" fill={bikini} />
+      <circle cx="100" cy="200" r="1.8" fill={deep} />
       {/* arms */}
-      <path d="M76 154 q-24 18 -12 44 q8 6 14 -4 q-10 -14 2 -30z" fill={`url(#${id})`} />
+      <path d="M80 112 C62 128, 54 156, 60 176 C64 190, 70 198, 76 204" stroke={S} strokeWidth="12" fill="none" strokeLinecap="round" />
       <g className="gf-wave">
-        <path d="M124 154 q26 -8 32 -34 q2 -10 -8 -8 q-8 22 -28 26z" fill={`url(#${id})`} />
-        {cocktail && <g transform="translate(150 104)"><path d="M-12 -12 h24 l-12 16z" fill="#ff8ab0" stroke="#fff" strokeWidth="1.5" /><path d="M0 4 v12 M-6 16 h12" stroke="#fff" strokeWidth="2" /><circle cx="8" cy="-14" r="3.5" fill="#e0344b" /><path d="M-2 -12 l10 -12" stroke="#ffd166" strokeWidth="2" /></g>}
+        <path d="M120 112 C138 108, 150 94, 152 70" stroke={S} strokeWidth="12" fill="none" strokeLinecap="round" />
+        <circle cx="152" cy="66" r="7" fill={skin} />
+        {cocktail && <g transform="translate(156 48)"><path d="M-12 -12 h24 l-12 16z" fill="#ff8ab0" stroke="#fff" strokeWidth="1.5" /><path d="M0 4 v12 M-6 16 h12" stroke="#fff" strokeWidth="2" /><circle cx="8" cy="-14" r="3.5" fill="#e0344b" /><path d="M-2 -12 l10 -12" stroke="#ffd166" strokeWidth="2" /></g>}
       </g>
       {/* head */}
-      <path d="M100 26 q-54 0 -64 58 q-2 38 28 52 q36 12 72 0 q30 -14 28 -52 q-10 -58 -64 -58z" fill={`url(#${id})`} />
-      <path d="M96 28 q10 -26 30 -24 q-10 14 -12 30z" fill={deep} />
-      <path d="M58 110 q42 30 84 0 q-4 26 -42 30 q-38 -4 -42 -30z" fill="#fdeef2" />
+      <path d="M100 18 q10 -16 26 -16 q-10 12 -10 26z" fill={deep} />
+      <ellipse cx="100" cy="62" rx="36" ry="38" fill={S} />
+      <path d="M66 72 q34 34 68 0 q-4 26 -34 28 q-30 -2 -34 -28z" fill="#fff5f8" opacity=".85" />
+      <path d="M64 86 q4 4 0 8 M68 84 q4 4 0 8 M136 86 q-4 4 0 8 M132 84 q-4 4 0 8" stroke={deep} strokeWidth="1.8" fill="none" />
+      {/* hibiscus by the fin */}
+      <g transform="translate(128 30)">{[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx={6 * Math.cos(a * Math.PI / 180)} cy={6 * Math.sin(a * Math.PI / 180)} rx="5" ry="3.4" fill="#ff5d8f" transform={`rotate(${a} ${6 * Math.cos(a * Math.PI / 180)} ${6 * Math.sin(a * Math.PI / 180)})`} />)}<circle r="2.6" fill="#ffd166" /></g>
+      {/* eyes */}
       <g className="gf-eyes">
-        <ellipse cx="80" cy="82" rx="13" ry="15" fill="#fff" /><ellipse cx="120" cy="82" rx="13" ry="15" fill="#fff" />
-        <circle cx="82" cy="85" r="6.5" fill="#3a2230" /><circle cx="118" cy="85" r="6.5" fill="#3a2230" />
-        <circle cx="84" cy="82" r="2" fill="#fff" /><circle cx="120" cy="82" r="2" fill="#fff" />
-        <path d="M67 76 q13 -10 26 0 M107 76 q13 -10 26 0" fill={deep} />
+        <path d="M72 62 q12 -14 26 0 q-12 10 -26 0z" fill="#fff" /><path d="M102 62 q12 -14 26 0 q-12 10 -26 0z" fill="#fff" />
+        <circle cx="86" cy="60" r="6" fill={iris} /><circle cx="114" cy="60" r="6" fill={iris} />
+        <circle cx="86" cy="60" r="3" fill="#1d1d24" /><circle cx="114" cy="60" r="3" fill="#1d1d24" />
+        <circle cx="88" cy="58" r="1.6" fill="#fff" /><circle cx="116" cy="58" r="1.6" fill="#fff" />
+        <path d="M70 61 q14 -18 30 -1 M100 60 q16 -17 30 1" stroke="#1d1d24" strokeWidth="2.6" fill="none" strokeLinecap="round" />
       </g>
-      <path d="M66 70 l-7 -7 M70 67 l-4 -9 M76 66 l0 -9 M134 70 l7 -7 M130 67 l4 -9 M124 66 l0 -9" stroke="#3a2230" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M84 114 q16 12 32 0 q-6 12 -16 12 q-10 0 -16 -12z" fill="#e0344b" />
-      <circle cx="64" cy="102" r="6" fill="#f08aa5" opacity=".6" /><circle cx="136" cy="102" r="6" fill="#f08aa5" opacity=".6" />
-      <circle cx="140" cy="140" r="0" />
-      <g><rect x="62" y="44" width="30" height="16" rx="7" fill="#2a1d25" /><rect x="108" y="44" width="30" height="16" rx="7" fill="#2a1d25" /><path d="M92 52 h16" stroke="#2a1d25" strokeWidth="3" /></g>
+      <path d="M72 55 l-5 -4 M76 52 l-3 -5 M128 55 l5 -4 M124 52 l3 -5" stroke="#1d1d24" strokeWidth="2" strokeLinecap="round" />
+      <path d="M74 44 q12 -6 22 0 M104 44 q10 -6 22 0" stroke={deep} strokeWidth="2" fill="none" strokeLinecap="round" />
+      <path d="M90 82 q10 8 20 0 q-4 -4 -10 -2 q-6 -2 -10 2z" fill="#d62246" />
+      <path d="M92 82 q8 3 16 0" stroke="#fff" strokeWidth="1" opacity=".5" fill="none" />
+      <ellipse cx="74" cy="74" rx="6" ry="3.5" fill="#ff8fab" opacity=".5" /><ellipse cx="126" cy="74" rx="6" ry="3.5" fill="#ff8fab" opacity=".5" />
+      {/* sunglasses pushed up */}
+      <g><rect x="70" y="26" width="26" height="12" rx="6" fill="#2a1d25" /><rect x="104" y="26" width="26" height="12" rx="6" fill="#2a1d25" /><path d="M96 31 h8" stroke="#2a1d25" strokeWidth="2.5" /></g>
       <path className="gf-heart" d="M166 38s-12-7-12-15a6 6 0 0 1 12-3 6 6 0 0 1 12 3c0 8-12 15-12 15z" fill="#e0344b" />
     </svg>
   )

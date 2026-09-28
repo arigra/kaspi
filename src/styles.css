@@ -300,9 +300,9 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .sc-spark{position:absolute; color:#e2b53c; font-size:24px; animation:spark 1.4s ease-out infinite; z-index:4}
 @keyframes carbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes gfsway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-.gf .gf-wave{transform-origin:124px 154px; animation:wave 1.6s ease-in-out infinite}
+.gf .gf-wave{transform-origin:120px 112px; animation:wave 1.6s ease-in-out infinite}
 .gf .gf-heart{animation:float 2s ease-in-out infinite}
-.gf .gf-eyes{transform-origin:100px 84px; animation:blink 5s infinite 1.3s}
+.gf .gf-eyes{transform-origin:100px 60px; animation:blink 5s infinite 1.3s}
 .hero .h-smoke{animation:smoke 2.4s ease-out infinite}
 @keyframes smoke{0%{opacity:0; transform:translateY(8px)}30%{opacity:.8}100%{opacity:0; transform:translateY(-16px)}}
 

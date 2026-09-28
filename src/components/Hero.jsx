@@ -232,7 +232,9 @@ function Brows({ brow, pal }) {
     sad: 'M104 100 q16 -2 36 -12 M160 88 q20 10 36 12',
     neutral: 'M104 92 q18 -4 36 -2 M160 90 q18 -2 36 2',
     confident: 'M104 88 q18 -8 36 0 M160 88 q18 -8 36 0',
-    smug: 'M104 92 q18 -2 36 2 M160 82 q18 -12 36 -4'
+    smug: 'M104 92 q18 -2 36 2 M160 82 q18 -12 36 -4',
+    up: 'M104 84 q18 -12 36 -2 M160 82 q18 -10 36 2',
+    scared: 'M104 86 q16 -4 34 -16 M162 70 q18 12 34 16'
   }[brow]
   return <path d={d} stroke={pal.line} strokeWidth="5" fill="none" strokeLinecap="round" />
 }
@@ -332,13 +334,27 @@ export default function Hero({ look, view = 'full', mood = '', palette = 'blue' 
             <path d="M92 150 q58 40 116 0 q-4 34 -58 42 q-54 -8 -58 -42z" fill={`url(#h-belly-${pk})`} />
             <path d="M78 120 q6 8 0 16 M84 116 q6 8 0 16 M222 120 q-6 8 0 16 M216 116 q-6 8 0 16" stroke={pal.line} strokeWidth="2.5" fill="none" strokeLinecap="round" />
             {look.earring !== 'none' && <circle cx="72" cy="140" r={look.earring === 'diamond' ? 5 : 3} fill={look.earring === 'diamond' ? '#c9f0ff' : '#f2c14e'} stroke={look.earring === 'diamond' ? '#7fc4e0' : '#b8862b'} strokeWidth="1.5" />}
-            <g className="h-eyes">
-              <ellipse cx="122" cy="108" rx="17" ry="19" fill="#fff" /><ellipse cx="178" cy="108" rx="17" ry="19" fill="#fff" />
-              <circle cx="125" cy="112" r="8" fill="#2a2320" /><circle cx="175" cy="112" r="8" fill="#2a2320" />
-              <circle cx="128" cy="109" r="2.5" fill="#fff" /><circle cx="178" cy="109" r="2.5" fill="#fff" />
-            </g>
-            <Brows brow={look.brow} pal={pal} />
-            {look.brow === 'sad' && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke={pal.hi} strokeWidth="2" fill="none" />}
+            {mood === 'happy' ? (
+              <g className="h-eyes">
+                <path d="M106 112 q16 -20 32 0" stroke="#2a2320" strokeWidth="6" fill="none" strokeLinecap="round" />
+                <path d="M162 112 q16 -20 32 0" stroke="#2a2320" strokeWidth="6" fill="none" strokeLinecap="round" />
+                <ellipse cx="108" cy="128" rx="9" ry="5" fill="#f08a8a" opacity=".55" /><ellipse cx="192" cy="128" rx="9" ry="5" fill="#f08a8a" opacity=".55" />
+              </g>
+            ) : mood === 'oops' ? (
+              <g className="h-eyes">
+                <ellipse cx="122" cy="106" rx="19" ry="22" fill="#fff" /><ellipse cx="178" cy="106" rx="19" ry="22" fill="#fff" />
+                <circle cx="122" cy="108" r="4.5" fill="#2a2320" /><circle cx="178" cy="108" r="4.5" fill="#2a2320" />
+              </g>
+            ) : (
+              <g className="h-eyes">
+                <ellipse cx="122" cy="108" rx="17" ry="19" fill="#fff" /><ellipse cx="178" cy="108" rx="17" ry="19" fill="#fff" />
+                <circle cx="125" cy="112" r="8" fill="#2a2320" /><circle cx="175" cy="112" r="8" fill="#2a2320" />
+                <circle cx="128" cy="109" r="2.5" fill="#fff" /><circle cx="178" cy="109" r="2.5" fill="#fff" />
+              </g>
+            )}
+            <Brows brow={mood === 'happy' ? 'up' : mood === 'oops' ? 'scared' : look.brow} pal={pal} />
+            {mood === 'oops' && <path className="h-sweat" d="M212 84 q8 12 0 18 q-8 -6 0 -18z" fill="#8fd3f0" stroke="#4aa3c9" strokeWidth="1.5" />}
+            {look.brow === 'sad' && !mood && <path d="M108 128 q14 6 28 0 M164 128 q14 6 28 0" stroke={pal.hi} strokeWidth="2" fill="none" />}
             <Teeth look={look} />
             <Cigar look={look} />
             {look.toothpick && <path d="M190 152 L216 138" stroke="#d9b27a" strokeWidth="3" strokeLinecap="round" />}
