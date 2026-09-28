@@ -8,6 +8,8 @@ import Lesson from './screens/Lesson.jsx'
 import { LessonDone, UpgradeReveal } from './screens/Done.jsx'
 import Chapters from './screens/Chapters.jsx'
 import Cards from './screens/Cards.jsx'
+import Transition from './screens/Transition.jsx'
+import { STAGES } from './content/index.js'
 import { ItemSheet, SettingsSheet, WorldSheet } from './screens/Sheets.jsx'
 import { coinsOf, chaptersOf, chapterGained, heroLook } from './content/upgrades.js'
 
@@ -19,6 +21,7 @@ export default function App() {
   const [toast, setToast] = useState(null)
   const [viewStage, setViewStage] = useState(null)
   const [focusChapter, setFocusChapter] = useState(null)
+  const [pendingStage, setPendingStage] = useState(null)
 
   useEffect(() => { setMuted(state.muted) }, [state.muted])
 
@@ -48,6 +51,7 @@ export default function App() {
     setProfile: (profile) => update({ profile }),
     goCards: () => go('cards'),
     goChapters: () => go('chapters'),
+    goStage: (n) => { setViewStage(n); setFocusChapter(null); go('home') },
     openSettings: () => setSheet({ type: 'settings' }),
     openItem: (key) => { setSheet({ type: 'item', key }); sfx.tap() },
     openWorld: () => { setSheet({ type: 'world' }); sfx.tap() },
@@ -78,6 +82,9 @@ export default function App() {
   }
   const finishChallenge = () => {
     const c = chapterById(play.chapterId)
+    const stage = STAGES[c.stage]
+    const stageDone = stage.chapters.filter((x) => !x.writing && !x.extra).every((x) => x.id === c.id || state.chapterDone[x.id])
+    if (!c.extra && !state.chapterDone[c.id] && stageDone && c.stage < STAGES.length - 1) setPendingStage(c.stage + 1)
     update((s) => ({
       chapterDone: { ...s.chapterDone, [c.id]: true },
       reef: s.reef.includes(c.item.key) ? s.reef : [...s.reef, c.item.key]
@@ -109,9 +116,11 @@ export default function App() {
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
-    screen = <UpgradeReveal lessons={coinsOf(state)} chapters={chaptersOf(state)} gained={chapterGained(state)} onHome={() => go('home')} />
+    screen = <UpgradeReveal lessons={coinsOf(state)} chapters={chaptersOf(state)} gained={chapterGained(state)} onHome={() => (pendingStage !== null ? go('transition') : go('home'))} />
+  } else if (view === 'transition') {
+    screen = <Transition to={pendingStage} lessons={coinsOf(state)} chapters={chaptersOf(state)} onEnter={() => { setViewStage(pendingStage); setPendingStage(null); setFocusChapter(null); go('home') }} />
   } else if (view === 'chapters') {
-    screen = <Chapters state={state} chapterStatus={chapterStatus} actions={actions} />
+    screen = <Chapters state={state} currentStage={current ? current.stage : STAGES.length - 1} chapterStatus={chapterStatus} actions={actions} />
   } else if (view === 'cards') {
     screen = <Cards state={state} actions={actions} />
   } else {
