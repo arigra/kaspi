@@ -7,7 +7,7 @@ import { sfx } from '../lib/sound.js'
 
 // Welcome flow: a dramatic opener, two "everyone says" cards, the promise,
 // meet the broke shark, meet the guides.
-const STEPS = ['drama', 'uncles', ...ADVICE.map((_, i) => `advice${i}`), 'promise', 'shark', 'guides']
+const STEPS = ['drama', ...ADVICE.map((_, i) => `advice${i}`), 'promise', 'shark', 'guides']
 
 export default function Onboarding({ onDone }) {
   const [n, setN] = useState(0)
@@ -26,20 +26,11 @@ export default function Onboarding({ onDone }) {
       </div>
     )
     cta = <button className="cta drama-cta" onClick={nextStep}>בואו נשנה את זה</button>
-  } else if (step === 'uncles') {
-    body = (
-      <div className="drama calm" key="uncles">
-        <p className="d1">התחלנו לעבוד.</p>
-        <p className="d2">הרווחנו קצת כסף.</p>
-        <p className="d3">ואז מגיעים הגאונים הפיננסיים של המשפחה:</p>
-      </div>
-    )
-    cta = <button className="cta drama-cta quick" onClick={nextStep}>נו, מה הם אומרים?</button>
   } else if (step.startsWith('advice')) {
-    const [who, advice, thought] = ADVICE[Number(step.slice(6))]
+    const [, advice, thought] = ADVICE[Number(step.slice(6))]
     body = (
       <div className="fade-in" key={step}>
-        <div className="advice"><small>{who} אומר</small>"{advice}"</div>
+        <div className="advice"><small>כולם אומרים</small>"{advice}"</div>
         <div className="thought"><small>ומה שעובר לכם בראש</small>{thought}</div>
       </div>
     )
