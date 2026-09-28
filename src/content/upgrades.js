@@ -1,3 +1,5 @@
+import { MAIN_LESSONS, CHAPTERS } from './index.js'
+
 // The hero's rise. Every finished lesson changes one small thing on him;
 // every finished chapter adds something big to his world.
 
@@ -89,10 +91,15 @@ export const CHAPTER_UPGRADES = [
 ]
 
 export const coinsOf = (state) => Object.values(state.done || {}).reduce((a, d) => a + d.length, 0)
-export const chaptersOf = (state) => Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length
+const MAIN_CHAPTERS = CHAPTERS.filter((c) => !c.writing && !c.extra).length
+// Chapter rewards spread over the main chapters, so the jet comes with the last one.
+export const scaleChapters = (n) => Math.min(CHAPTER_UPGRADES.length, Math.ceil(n * CHAPTER_UPGRADES.length / MAIN_CHAPTERS))
+export const chaptersRaw = (state) => Object.keys(state.chapterDone || {}).filter((k) => state.chapterDone[k]).length
+export const chaptersOf = (state) => scaleChapters(chaptersRaw(state))
+export const chapterGained = (state) => { const r = chaptersRaw(state); return scaleChapters(r) > scaleChapters(r - 1) }
 
 // Upgrades are spread evenly over all lessons, so the last lesson brings the crown.
-export const TOTAL_LESSONS = 85
+export const TOTAL_LESSONS = MAIN_LESSONS
 export const upgradesAt = (lessons) => Math.min(LESSON_UPGRADES.length, Math.ceil(lessons * LESSON_UPGRADES.length / TOTAL_LESSONS))
 export function heroLook(lessons) {
   const look = { ...BASE }

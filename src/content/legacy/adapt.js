@@ -52,12 +52,12 @@ function adapt(ref) {
   const firstCard = { front: h ? h.q : old.title, back: h ? h.o[old.answer].split(/(?<=[.!?])\s+/)[0] : old.takeaway }
   return [
     { title: old.title, minutes: 2, screens: [choice, { type: 'cards', title: old.intro, cards: cards.slice(0, 2) }], card: firstCard, _q: old },
-    { title: second, minutes: 2, screens: [{ type: 'cards', cards: cards.slice(2), source: old.source }, ...mission], card, _q: {} }
+    { title: second, minutes: 2, screens: [{ type: 'cards', title: old.title, cards: [['', `בקצרה, מהשיעור הקודם: ${cards[0][1]}`], ...cards.slice(2)], source: old.source }, ...mission], card, _q: {} }
   ]
 }
 
 // Build a chapter from references like 's3' (saving lesson 3).
-export function legacyChapter({ id, title, refs, item, guide = 'kaspi' }) {
+export function legacyChapter({ id, title, refs, item, guide = 'kaspi', extra = false }) {
   const lessons = refs.flatMap(adapt)
   // The chapter challenge replays each lesson's question in the classic quiz form.
   const challenge = lessons
@@ -65,5 +65,5 @@ export function legacyChapter({ id, title, refs, item, guide = 'kaspi' }) {
     .slice(-3)
     .map((l) => ({ type: 'predict', prompt: l._q.question, options: l._q.options, answer: l._q.answer, reveal: l._q.takeaway }))
   lessons.forEach((l) => delete l._q)
-  return { id, title, guide, lessons, challenge: challenge.length ? challenge : [{ ref: [0, 0] }], item }
+  return { id, title, guide, extra, lessons, challenge: challenge.length ? challenge : [{ ref: [0, 0] }], item }
 }

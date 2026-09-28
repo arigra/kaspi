@@ -9,7 +9,7 @@ import { LessonDone, UpgradeReveal } from './screens/Done.jsx'
 import Chapters from './screens/Chapters.jsx'
 import Cards from './screens/Cards.jsx'
 import { ItemSheet, SettingsSheet, WorldSheet } from './screens/Sheets.jsx'
-import { coinsOf, chaptersOf, heroLook } from './content/upgrades.js'
+import { coinsOf, chaptersOf, chapterGained, heroLook } from './content/upgrades.js'
 
 export default function App() {
   const [state, setState] = usePersistentState()
@@ -32,11 +32,11 @@ export default function App() {
     if (state.skipped[c.id]) return 'skipped'
     return 'open'
   }
-  const current = CHAPTERS.find((c) => !c.writing && !state.chapterDone[c.id] && !state.skipped[c.id])
+  const current = CHAPTERS.find((c) => !c.writing && !c.extra && !state.chapterDone[c.id] && !state.skipped[c.id])
   const stageIndex = viewStage ?? (current ? current.stage : 0)
   let next = null
   for (const c of CHAPTERS) {
-    if (c.writing || state.chapterDone[c.id] || state.skipped[c.id]) continue
+    if (c.writing || c.extra || state.chapterDone[c.id] || state.skipped[c.id]) continue
     const d = state.done[c.id] || []
     const i = c.lessons.findIndex((_, k) => !d.includes(k))
     if (i >= 0) { next = { chapter: c, lesson: c.lessons[i], index: i }; break }
@@ -109,7 +109,7 @@ export default function App() {
         onChallenge={() => actions.startChallenge(c.id)} onHome={() => go('home')} />
     )
   } else if (view === 'reef') {
-    screen = <UpgradeReveal lessons={coinsOf(state)} chapters={chaptersOf(state)} onHome={() => go('home')} />
+    screen = <UpgradeReveal lessons={coinsOf(state)} chapters={chaptersOf(state)} gained={chapterGained(state)} onHome={() => go('home')} />
   } else if (view === 'chapters') {
     screen = <Chapters state={state} chapterStatus={chapterStatus} actions={actions} />
   } else if (view === 'cards') {

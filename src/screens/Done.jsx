@@ -35,15 +35,15 @@ export function LessonDone({ lessons, offerChallenge, next, onNext, onChallenge,
   )
 }
 
-export function UpgradeReveal({ lessons, chapters, onHome }) {
+export function UpgradeReveal({ lessons, chapters, gained = true, onHome }) {
   const [after, setAfter] = useState(false)
   useEffect(() => { const t = setTimeout(() => setAfter(true), 1100); return () => clearTimeout(t) }, [])
-  const up = chapterUpgrade(chapters)
+  const up = gained ? chapterUpgrade(chapters) : null
   return (
     <>
       <div className="top"><div className="logo">כספי<b>.</b></div></div>
       <div className={`ldscene morphscene ${after ? 'after' : ''}`}>
-        <Scene lessons={lessons} chapters={after ? chapters : chapters - 1} mood={after ? 'party' : ''} />
+        <Scene lessons={lessons} chapters={after || !gained ? chapters : chapters - 1} mood={after ? 'party' : ''} />
       </div>
       <h1 className={`prize big ${after ? 'show' : ''}`}>{after ? (up ? up.name : 'פרק הושלם!') : '\u00a0'}</h1>
       <div className="spacer" />
