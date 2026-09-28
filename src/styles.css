@@ -517,6 +517,9 @@ h2.q{font-size:21px; line-height:1.4; margin:4px 0 16px; font-weight:800}
 .drama .d2{font-size:24px; font-weight:800; color:#3a4a42; animation-delay:1.4s}
 .drama .d3{font-size:22px; color:var(--muted); animation-delay:3s}
 .drama .d4{font-size:34px; color:var(--cta-deep,#a86b1c); animation-delay:4.3s}
-@keyframes dramaIn{from{opacity:0; transform:translateY(14px); filter:blur(4px)}to{opacity:1; transform:none; filter:none}}
+@keyframes dramaIn{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
 .drama-cta{opacity:0; animation:dramaIn .6s ease-out 5.2s forwards}
 .meet-hero{width:170px; height:250px; margin:0 auto}
+.drama.calm .d2{animation-delay:1s}
+.drama.calm .d3{animation-delay:1.9s; font-size:26px; color:var(--ink)}
+.drama-cta.quick{animation-delay:2.6s}
