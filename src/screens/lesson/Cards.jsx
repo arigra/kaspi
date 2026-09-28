@@ -35,7 +35,7 @@ export default function Cards({ screen, next, look }) {
           )}
         </div>
       </div>
-      <Foot>{last ? <Cta onClick={next.go}>{next.label}</Cta> : <Cta ghost onClick={() => { setI(i + 1); sfx.tap() }}>הבא</Cta>}</Foot>
+      <Foot>{last ? <Cta onClick={next.go}>{next.label}</Cta> : <Cta disabled>הקישו על הכרטיס</Cta>}</Foot>
     </>
   )
 }
