@@ -31,7 +31,6 @@ export const LESSON_UPGRADES = [
   ['משקפי שמש!', { eyes: 'cheap' }],
   ['בלי כובע!', { hat: 'none' }],
   ['חולצת הוואי!', { shirt: 'hawaii' }],
-  ['אוזניות!', { headphones: true }],
   ['חיוך מושלם!', { white: true }],
   ['טבעת!', { rings: 1 }],
   ['ארנק מלא!', { right: 'wallet' }],
@@ -102,3 +101,10 @@ export function heroLook(lessons) {
 }
 export const lessonUpgrade = (lessons) => (upgradesAt(lessons) > upgradesAt(lessons - 1) ? LESSON_UPGRADES[upgradesAt(lessons) - 1][0] : null)
 export const chapterUpgrade = (chapters) => CHAPTER_UPGRADES[chapters - 1]
+
+// The look after a named upgrade (used on the welcome screen as a teaser).
+export function lookAfter(name) {
+  const look = { ...BASE }
+  for (const [n, patch] of LESSON_UPGRADES) { Object.assign(look, patch); if (n === name) break }
+  return look
+}

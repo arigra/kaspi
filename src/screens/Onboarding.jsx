@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Hero from '../components/Hero.jsx'
 import { GUIDES } from '../content/guides.js'
-import { heroLook } from '../content/upgrades.js'
+import { lookAfter } from '../content/upgrades.js'
 import { ADVICE } from '../content/onboarding.js'
 import { sfx } from '../lib/sound.js'
 
@@ -24,14 +24,14 @@ export default function Onboarding({ onDone }) {
   } else if (n === ADVICE.length) {
     body = (
       <div className="obtext fade-in">
-        <div className="promise-hero"><Hero look={heroLook(0)} view="bust" /></div>
+        <div className="promise-hero"><Hero look={lookAfter('שרשרת עבה!')} view="bust" mood="happy" /></div>
         <h1>5 דקות ביום. בלי ז׳רגון, בלי מכירות.</h1>
         <ul className="promise">
           <li>תבינו לאן הכסף שלכם הולך כל חודש</li>
           <li>תדעו כמה באמת אפשר לחסוך</li>
           <li>תבינו איך לגשת להשקעות, לפנסיה ולמשכנתא</li>
         </ul>
-        <p className="promise-note">וכל שיעור שתסיימו משדרג את הכריש הזה. כרגע אין לו אפילו חולצה.</p>
+        <p className="promise-note">ככה הכריש שלכם יכול להיראות. הוא מתחיל בלי כלום, וכל שיעור משדרג אותו.</p>
       </div>
     )
     cta = <button className="cta" onClick={nextStep}>נשמע טוב</button>
